@@ -25,8 +25,8 @@ import net.spring.intranet.entidad.Docente.*;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _UpdateDocenteBean_QNAME = new QName("http://service.intranet.spring.net", "bean");
     private final static QName _FindDocenteResponseReturn_QNAME = new QName("http://service.intranet.spring.net", "return");
+    private final static QName _SaveDocenteBean_QNAME = new QName("http://service.intranet.spring.net", "bean");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: net.spring.intranet.service
@@ -68,19 +68,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link UpdateDocente }
-     * 
-     */
-    public UpdateDocente createUpdateDocente() {
-        return new UpdateDocente();
-    }
-
-    /**
      * Create an instance of {@link FindDocenteResponse }
      * 
      */
     public FindDocenteResponse createFindDocenteResponse() {
         return new FindDocenteResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateDocente }
+     * 
+     */
+    public UpdateDocente createUpdateDocente() {
+        return new UpdateDocente();
     }
 
     /**
@@ -119,9 +119,9 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link Docentes }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "bean", scope = UpdateDocente.class)
-    public JAXBElement<Docentes> createUpdateDocenteBean(Docentes value) {
-        return new JAXBElement<Docentes>(_UpdateDocenteBean_QNAME, Docentes.class, UpdateDocente.class, value);
+    @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "return", scope = FindDocenteResponse.class)
+    public JAXBElement<Docentes> createFindDocenteResponseReturn(Docentes value) {
+        return new JAXBElement<Docentes>(_FindDocenteResponseReturn_QNAME, Docentes.class, FindDocenteResponse.class, value);
     }
 
     /**
@@ -130,16 +130,16 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "bean", scope = SaveDocente.class)
     public JAXBElement<Docentes> createSaveDocenteBean(Docentes value) {
-        return new JAXBElement<Docentes>(_UpdateDocenteBean_QNAME, Docentes.class, SaveDocente.class, value);
+        return new JAXBElement<Docentes>(_SaveDocenteBean_QNAME, Docentes.class, SaveDocente.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Docentes }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "return", scope = FindDocenteResponse.class)
-    public JAXBElement<Docentes> createFindDocenteResponseReturn(Docentes value) {
-        return new JAXBElement<Docentes>(_FindDocenteResponseReturn_QNAME, Docentes.class, FindDocenteResponse.class, value);
+    @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "bean", scope = UpdateDocente.class)
+    public JAXBElement<Docentes> createUpdateDocenteBean(Docentes value) {
+        return new JAXBElement<Docentes>(_SaveDocenteBean_QNAME, Docentes.class, UpdateDocente.class, value);
     }
 
 }

@@ -223,7 +223,6 @@ DELIMITER ;
 
 
 
-
 USE `db_proyecto_dawii`;
 DROP procedure IF EXISTS `SP_listarCarrera`;
 DELIMITER $$
@@ -237,23 +236,7 @@ DELIMITER ;
 
 
 
-
-USE `db_proyecto_dawii`;
-DROP procedure IF EXISTS `SP_listarAlu`;
-DELIMITER $$
-USE `db_proyecto_dawii`$$
-CREATE PROCEDURE `SP_listarAlu` ()
-BEGIN
-	select al.cod_alu,al.nom_alu,al.ape_alu,al.usu_alu,al.pass_alu,al.cod_car,c.des_car,al.edad_alu,al.cel_alu,al.dir_alu,al.cod_rol,r.des_rol,al.est_reg
-    from tb_alumno al 
-    join tb_carrera c on al.cod_car=c.cod_car
-    join tb_rol r on al.cod_rol=r.cod_rol
-    where al.est_reg = 'ACTIVO';
-END$$
-DELIMITER ;
-
-
-
+/*-----------------------------------------------------------*/
 
 USE `db_proyecto_dawii`;
 DROP procedure IF EXISTS `SP_listarDocentes`;
@@ -287,6 +270,79 @@ DELIMITER ;
 
 
 
+
+
+USE `db_proyecto_dawii`;
+DROP procedure IF EXISTS `SP_saveDocente`;
+DELIMITER $$
+USE `db_proyecto_dawii`$$
+CREATE PROCEDURE `SP_saveDocente` (nom varchar(150), ape varchar(150), usu char(10), pass char(16), edad int(11), cel char(9), dir varchar(250), rol int(8), estado varchar(25) )
+BEGIN
+	insert into tb_profesor 
+    values (null,nom,ape,usu,pass,edad,cel,dir,rol, estado);
+END$$
+DELIMITER ;
+
+
+
+USE `db_proyecto_dawii`;
+DROP procedure IF EXISTS `SP_updateDocente`;
+DELIMITER $$
+USE `db_proyecto_dawii`$$
+CREATE PROCEDURE `SP_updateDocente` (cod int(8), nom varchar(150), ape varchar(150), usu char(10), pass char(16), edad int(11), cel char(9), dir varchar(250), rol int(8), estado varchar(25) )
+BEGIN
+	update tb_profesor
+    set
+		nom_pro = nom,
+        ape_pro = ape,
+        usu_pro = usu,
+        pass_pro = pass,
+        edad_pro = edad,
+        cel_pro = cel,
+        dir_pro = dir,
+        cod_rol = rol,
+        est_reg = estado
+    where cod_pro = cod;
+END$$
+DELIMITER ;
+
+
+USE `db_proyecto_dawii`;
+DROP procedure IF EXISTS `SP_findDocente`;
+DELIMITER $$
+USE `db_proyecto_dawii`$$
+CREATE PROCEDURE `SP_findDocente` (cod int(8))
+BEGIN
+	select p.cod_pro,p.nom_pro,p.ape_pro,p.usu_pro,p.pass_pro,p.edad_pro,p.cel_pro,p.dir_pro,p.cod_rol,r.des_rol,p.est_reg from tb_profesor p
+    join tb_rol r on p.cod_rol = r.cod_rol
+    where p.cod_pro = cod;
+END$$
+DELIMITER ;
+
+
+
+/*-----------------------------------------------------------*/
+
+
+USE `db_proyecto_dawii`;
+DROP procedure IF EXISTS `SP_listarAlu`;
+DELIMITER $$
+USE `db_proyecto_dawii`$$
+CREATE PROCEDURE `SP_listarAlu` ()
+BEGIN
+	select al.cod_alu,al.nom_alu,al.ape_alu,al.usu_alu,al.pass_alu,al.cod_car,c.des_car,al.edad_alu,al.cel_alu,al.dir_alu,al.cod_rol,r.des_rol,al.est_reg
+    from tb_alumno al 
+    join tb_carrera c on al.cod_car=c.cod_car
+    join tb_rol r on al.cod_rol=r.cod_rol
+    where al.est_reg = 'ACTIVO';
+END$$
+DELIMITER ;
+
+
+
+
+
+
 USE `db_proyecto_dawii`;
 DROP procedure IF EXISTS `SP_deleteAlu`;
 DELIMITER $$
@@ -299,6 +355,57 @@ BEGIN
     where cod_alu = codigo;
 END$$
 DELIMITER ;
+
+
+
+USE `db_proyecto_dawii`;
+DROP procedure IF EXISTS `SP_saveAlu`;
+DELIMITER $$
+USE `db_proyecto_dawii`$$
+CREATE PROCEDURE `SP_saveAlu` (nom varchar(150), ape varchar(150), usu char(10), pass char(16), carrera int(8), edad int(11), cel char(9), dir varchar(250), rol int(8), estado varchar(25) )
+BEGIN
+	insert into tb_alumno  
+    values(null,nom,ape,usu,pass,carrera,edad,cel,dir,rol,estado);
+END$$
+DELIMITER ;
+
+
+
+
+USE `db_proyecto_dawii`;
+DROP procedure IF EXISTS `SP_updateAlu`;
+DELIMITER $$
+USE `db_proyecto_dawii`$$
+CREATE PROCEDURE `SP_updateAlu` (cod int(8), nom varchar(150), ape varchar(150), usu char(10), pass char(16), carrera int(8), edad int(11), cel char(9), dir varchar(250), rol int(8), estado varchar(25) )
+BEGIN
+	update tb_alumno
+    set
+		nom_alu = nom,
+        ape_alu = ape,
+        usu_alu = usu,
+        pass_alu = pass,
+        cod_car = carrera,
+        edad_alu = edad,
+        cel_alu = cel,
+        dir_alu = dir,
+        cod_rol = rol,
+        est_reg = estado
+    where cod_alu = cod;
+END$$
+DELIMITER ;
+
+
+USE `db_proyecto_dawii`;
+DROP procedure IF EXISTS `SP_findAlu`;
+DELIMITER $$
+USE `db_proyecto_dawii`$$
+CREATE PROCEDURE `SP_findAlu` (cod int(8))
+BEGIN
+	select * from tb_alumno where cod_alu = cod;
+END$$
+DELIMITER ;
+
+
 
 
 /*---------------------------------------------------------------------------------------------------------------*/

@@ -18,20 +18,18 @@ public class AlumnoDao implements IAlumnoDao{
 		CallableStatement cstm=null;
 		try {
 			cn=MysqlDBConexion.getConexion();
-			String sql="call SP_saveAlu(?,?,?,?,?,?,?,?,?,?,?,?)";
+			String sql="call SP_saveAlu(?,?,?,?,?,?,?,?,?,?)";
 			cstm=cn.prepareCall(sql);
 			cstm.setString(1,bean.getNomAlu());
 			cstm.setString(2,bean.getApeAlu());
 			cstm.setString(3,bean.getUsernameAlu());
 			cstm.setString(4,bean.getPassAlu());
 			cstm.setInt(5, bean.getCodCarreraAlu());
-			cstm.setString(6, bean.getDesCarreraAlu());
-			cstm.setInt(7, bean.getEdadAlu());
-			cstm.setString(8, bean.getCelAlu());
-			cstm.setString(9, bean.getDirecAlu());
-			cstm.setInt(10, bean.getCodRolAlu());
-			cstm.setString(11, bean.getDesRolAlu());
-			cstm.setString(12, bean.getEstado());
+			cstm.setInt(6, bean.getEdadAlu());
+			cstm.setString(7, bean.getCelAlu());
+			cstm.setString(8, bean.getDirecAlu());
+			cstm.setInt(9, bean.getCodRolAlu());
+			cstm.setString(10, bean.getEstado());
 			estado=cstm.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();	
@@ -54,7 +52,7 @@ public class AlumnoDao implements IAlumnoDao{
 		CallableStatement cstm=null;
 		try {
 			cn=MysqlDBConexion.getConexion();
-			String sql="call SP_updateAlu(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			String sql="call SP_updateAlu(?,?,?,?,?,?,?,?,?,?,?)";
 			cstm=cn.prepareCall(sql);
 			cstm.setInt(1, bean.getCodigoAlu());
 			cstm.setString(2,bean.getNomAlu());
@@ -62,13 +60,11 @@ public class AlumnoDao implements IAlumnoDao{
 			cstm.setString(4,bean.getUsernameAlu());
 			cstm.setString(5,bean.getPassAlu());
 			cstm.setInt(6, bean.getCodCarreraAlu());
-			cstm.setString(7, bean.getDesCarreraAlu());
-			cstm.setInt(8, bean.getEdadAlu());
-			cstm.setString(9, bean.getCelAlu());
-			cstm.setString(10, bean.getDirecAlu());
-			cstm.setInt(11, bean.getCodRolAlu());
-			cstm.setString(12, bean.getDesRolAlu());
-			cstm.setString(13, bean.getEstado());
+			cstm.setInt(7, bean.getEdadAlu());
+			cstm.setString(8, bean.getCelAlu());
+			cstm.setString(9, bean.getDirecAlu());
+			cstm.setInt(10, bean.getCodRolAlu());
+			cstm.setString(11, bean.getEstado());
 			estado=cstm.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();	
@@ -129,13 +125,11 @@ public class AlumnoDao implements IAlumnoDao{
 				bean.setUsernameAlu(rs.getString(4));
 				bean.setPassAlu(rs.getString(5));
 				bean.setCodCarreraAlu(rs.getInt(6));
-				bean.setDesCarreraAlu(rs.getString(7));
-				bean.setEdadAlu(rs.getInt(8));
-				bean.setCelAlu(rs.getString(9));
-				bean.setDirecAlu(rs.getString(10));
-				bean.setCodRolAlu(rs.getInt(11));
-				bean.setDesRolAlu(rs.getString(12));
-				bean.setEstado(rs.getString(13));
+				bean.setEdadAlu(rs.getInt(7));
+				bean.setCelAlu(rs.getString(8));
+				bean.setDirecAlu(rs.getString(9));
+				bean.setCodRolAlu(rs.getInt(10));
+				bean.setEstado(rs.getString(11));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();	

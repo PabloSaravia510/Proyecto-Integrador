@@ -97,7 +97,7 @@
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	  	  <div class="navbar-header">
 		       <div class="navbar-header">
-	     		 <a class="navbar-brand" href="#">SERPRODAT</a>
+	     		 <a class="navbar-brand" href="#">SCHOOL_MANAGER</a>
 	  			</div>
 	  	  </div>
 	  
@@ -109,7 +109,7 @@
 				      <a class="nav-link" th:href="@{/docente/}">Docente</a>
 				    </li>
 					<li class="nav-item">
-				      <a class="nav-link" th:href="@{/alumno}">Alumno</a>
+				      <a class="nav-link" th:href="@{/alumno/}">Alumno</a>
 				    </li>
 
 			  </ul>
@@ -172,7 +172,7 @@
 							      <td th:text="${bean.DesRolAlu.value}"></td>
 							       <td th:text="${bean.estado.value}"></td>
 							      
-							      <td><a  id="btn-Editar" class="btn btn-info btn-editar" data-toggle="modal" data-target="#modalDocente"><i class="far fa-edit"></i></a></td>
+							      <td><a  th:href="@{buscar/(codigo=${bean.codigoAlu})}" id="btn-Editar" class="btn btn-info btn-editar" data-toggle="modal" data-target="#modalDocente"><i class="far fa-edit"></i></a></td>
 							      <td><a  th:href="@{eliminar/(codigo=${bean.codigoAlu})}"  id="btn-Eliminar" class="btn btn-danger btn-eliminar"><i class="far fa-trash-alt"></i></a></td>
 							      
 							    </tr>  
@@ -189,11 +189,11 @@
 							<div class="modal-content">
 								
 								<div class="modal-header bg-blue-darker">
-									<h4 class="modal-title text-white">Docente</h4>
+									<h4 class="modal-title text-white">Alumno</h4>
 								</div>
 								
 								<div class="modal-body">
-									 <form method="POST" id="idRegistra" th:action="@{/docente/guardar}">	
+									 <form method="POST" id="idRegistra" th:action="@{/alumno/guardar}">	
 										<input type="hidden" id="idCodigo" value="0" name="codigo">
 										
 										<div class="container">
@@ -251,11 +251,7 @@
 												
 											
 												
-												<div class="form-group has-feedback col-md-12">
-													<label for="exampleInputEmail1"><b>Dirección</b></label><br>
-													<i class="fas fa-money-check-alt form-control-feedback2"></i>
-													<input type="text" class="form-control"  name="direccion" id="idDireccion" placeholder="Ingresar dirección">														
-												</div>
+											
 												
 												<div class="form-group has-feedback col-md-6">	
 														<label for="exampleInputEmail1"><b>Rol</b></label><br>
@@ -269,24 +265,29 @@
 													    </select>
 												 </div>
 												 
-												 <div class="form-group has-feedback col-md-6">	
-														<label for="exampleInputEmail1"><b>Estado</b></label><br>
-												        <i class="fas fa-prescription-bottle-alt form-control-feedback2"></i>
-													    <select class="form-control" name="estado" id="idEstado">
-													      <option value="0">[Seleccione Estado]</option>
-													      <option value="Activo">Activo</option>
-													      <option value="Inactivo">Inactivo</option>
-													      <option value="Retirado">Retirado</option>
-													      <option value="Suspendido">Suspendido</option>
-													    </select>
-												 </div>
-												 												 
+												 
+												<div class="form-group has-feedback col-md-6">
+													<label for="exampleInputEmail1"><b>Estado</b></label><br>
+													<i class="fas fa-money-check-alt form-control-feedback2"></i>
+													<input type="text" class="form-control"  name="estado" id="idEstado" placeholder="Ingresar dirección">														
+												</div>
+												
+												 	
+												 	
+												 	
+												<div class="form-group has-feedback col-md-12">
+													<label for="exampleInputEmail1"><b>Dirección</b></label><br>
+													<i class="fas fa-money-check-alt form-control-feedback2"></i>
+													<input type="text" class="form-control"  name="direccion" id="idDireccion" placeholder="Ingresar dirección">														
+												</div>	
+												
+																						 
 											</div>
 										</div>		
 																
 										<div class="col-md-12 text-center mt-4"> 										
 											<button type="submit" id="Guardar" class="btn btn-primary"><i class="fas fa-save"></i> Registrar</button>
-											<button type="button" id="btn-cerrar" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-undo-alt"></i> Cancelar</button>
+											<button type="button" id="btnCerrar" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-undo-alt"></i> Cancelar</button>
 										</div> 
 																																		
 									</form>
@@ -338,12 +339,9 @@
 		
 		/* SCRIPT PARA ELIMINAR */
 		
-		//EVENTO CLICK AL BOTON CON ID "btn-Eliminar"
 		$(document).on("click","#btn-Eliminar",function(){
 			
-			//ESTABLECER EVENTO POR DEFECTO Y ANULAR EL HREF
 			event.preventDefault();
-			//OBTENER EL VALOR DEL ATRIBUTO "HREF" DEL BOTON(ETIQUETA A) SELECCIONADO
 			var ruta=$(this).attr("href");
 			alertify.confirm("SISTEMA","Seguro que desea dar de baja al usuario!",
 			function(){
@@ -369,6 +367,49 @@
 		})
 
 
+		
+		
+		
+		/* SCRIPT PARA EDITAR/BUSCAR */	
+		$(document).on("click","#btn-Editar",function(){
+
+			var ruta=$(this).attr("href");
+
+			$.get(ruta,function(response){
+				console.log(response);
+				$("#idCodigo").val(response.codigoAlu);
+				$("#idNombre").val(response.nomAlu.value);
+				$("#idApellido").val(response.apeAlu.value);
+				$("#idUsername").val(response.usernameAlu.value);
+				$("#idPassword").val(response.passAlu.value);
+				$("#idCarrera").val(response.codCarreraAlu);
+				$("#idEdad").val(response.edadAlu);
+				$("#idCelular").val(response.celAlu.value);
+				$("#idDireccion").val(response.direcAlu.value);
+				$("#idRol").val(response.codRolAlu);
+				$("#idEstado").val(response.estado.value);
+			})
+		})
+
+		
+		
+		
+		/* SCRIPT PARA CERRAR */
+		$(document).on("click","#btnCerrar",function(){
+			//REINICIAR VALIDACION
+			$('#idRegistra').data("bootstrapValidator").resetForm(true);
+			//LIMPIAR CONTROLES
+			$('#idRegistra').trigger("reset");
+			$("#idCodigo").val(0);
+		})
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 	</script>

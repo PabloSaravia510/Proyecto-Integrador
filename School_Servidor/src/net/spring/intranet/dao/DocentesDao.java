@@ -18,7 +18,7 @@ public class DocentesDao implements IDocentesDao{
 		CallableStatement cstm=null;
 		try {
 			cn=MysqlDBConexion.getConexion();
-			String sql="call SP_saveDocente(?,?,?,?,?,?,?,?,?,?)";
+			String sql="call SP_saveDocente(?,?,?,?,?,?,?,?,?)";
 			cstm=cn.prepareCall(sql);
 			cstm.setString(1,bean.getNomPro());
 			cstm.setString(2,bean.getApePro());
@@ -28,8 +28,7 @@ public class DocentesDao implements IDocentesDao{
 			cstm.setString(6, bean.getCelPro());
 			cstm.setString(7, bean.getDirecPro());
 			cstm.setInt(8, bean.getCodRolPro());
-			cstm.setString(9, bean.getDesRolPro());
-			cstm.setString(10, bean.getEstado());
+			cstm.setString(9, bean.getEstado());
 			estado=cstm.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();	
@@ -52,7 +51,7 @@ public class DocentesDao implements IDocentesDao{
 		CallableStatement cstm=null;
 		try {
 			cn=MysqlDBConexion.getConexion();
-			String sql="call SP_updateDocente(?,?,?,?,?,?,?,?,?,?,?)";
+			String sql="call SP_updateDocente(?,?,?,?,?,?,?,?,?,?)";
 			cstm=cn.prepareCall(sql);
 			cstm.setInt(1, bean.getCodigoPro());
 			cstm.setString(2,bean.getNomPro());
@@ -63,8 +62,7 @@ public class DocentesDao implements IDocentesDao{
 			cstm.setString(7, bean.getCelPro());
 			cstm.setString(8, bean.getDirecPro());
 			cstm.setInt(9, bean.getCodRolPro());
-			cstm.setString(10, bean.getDesRolPro());
-			cstm.setString(11, bean.getEstado());
+			cstm.setString(10, bean.getEstado());
 			estado=cstm.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();	
