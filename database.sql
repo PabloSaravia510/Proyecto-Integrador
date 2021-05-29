@@ -20,6 +20,7 @@ DES_ROL varchar(250) not null
 );
 
 
+
 drop table if exists `tb_alumno`;
 create table `tb_alumno`(
 COD_ALU int (8) not null auto_increment primary key,
@@ -132,18 +133,21 @@ FEC_QR datetime not null
 -------------------------------------------------------------------------------------------------------------
 /*ALTER CONSTRAINT */
 
+ALTER TABLE tb_carrera
+	ADD CONSTRAINT CHK_EST_REG_CAR CHECK (EST_REG IN ('A','I'));
+
 ALTER TABLE tb_alumno
 	ADD	CONSTRAINT FK_ALU_COD_CAR_ID FOREIGN KEY (COD_CAR) REFERENCES tb_carrera (COD_CAR),
 	ADD	CONSTRAINT FK_ALU_COD_ROL_ID FOREIGN KEY (COD_ROL) REFERENCES tb_rol (COD_ROL),
 	ADD CONSTRAINT CHK_PASS_ALU CHECK (char_length(PASS_ALU) > 2 and char_length(PASS_ALU) < 16),
-	ADD CONSTRAINT CHK_EST_REG CHECK (EST_REG IN ('A', 'R', 'S', 'I')),
+	ADD CONSTRAINT CHK_EST_REG_ALU CHECK (EST_REG IN ('A', 'R', 'S', 'I')),
 	ADD CONSTRAINT UNQ_USU_ALU UNIQUE (USU_ALU),
 	ALTER CEL_ALU SET DEFAULT 'NO';    
     
 ALTER TABLE tb_profesor 
 	ADD CONSTRAINT CHK_PASS_PRO CHECK (char_length(PASS_PRO) > 2 and char_length(PASS_PRO) < 16),
 	ADD	CONSTRAINT FK_PRO_COD_ROL_ID FOREIGN KEY (COD_ROL) REFERENCES tb_rol (COD_ROL),
-	ADD CONSTRAINT CHK_EST_REG CHECK (EST_REG IN ('A', 'R', 'S')),
+	ADD CONSTRAINT CHK_EST_REG_PRO CHECK (EST_REG IN ('A', 'R', 'S')),
 	ADD CONSTRAINT UNQ_USU_PRO UNIQUE (USU_PRO),
 	ALTER CEL_PRO SET DEFAULT 'NO';
 	 
@@ -153,7 +157,7 @@ ALTER TABLE tb_seccion
     ADD	CONSTRAINT FK_SEC_COD_HOR_ID FOREIGN KEY (COD_HOR) REFERENCES tb_horario (COD_HOR),
 	ADD CONSTRAINT CHK_LFAL_SEC CHECK (char_length(LFAL_SEC) < 4),
 	ADD CONSTRAINT CHK_LCLA_SEC CHECK (char_length(LCLA_SEC) < 15),
-	ADD CONSTRAINT CHK_EST_REG CHECK (EST_REG IN ('A','I')),
+	ADD CONSTRAINT CHK_EST_REG_SEC CHECK (EST_REG IN ('A','I')),
 	ALTER NOTA_1 SET DEFAULT 0,
 	ALTER NOTA_2 SET DEFAULT 0;
    
@@ -161,19 +165,19 @@ ALTER TABLE tb_seccion
     
 ALTER TABLE tb_clase
 	ADD	CONSTRAINT FK_CLA_COD_SEC_ID FOREIGN KEY (COD_SEC) REFERENCES tb_seccion (COD_SEC),
-	ADD CONSTRAINT CHK_EST_REG CHECK (EST_REG IN ('A', 'I'));
+	ADD CONSTRAINT CHK_EST_REG_CLA CHECK (EST_REG IN ('A', 'I'));
     
     
     
 ALTER TABLE tb_asistencia
 	ADD	CONSTRAINT FK_ASI_COD_ALU_ID FOREIGN KEY (COD_ALU) REFERENCES tb_alumno (COD_ALU),
     ADD	CONSTRAINT FK_ASI_COD_CLA_ID FOREIGN KEY (COD_CLA) REFERENCES tb_clase (COD_CLA),
-	ADD CONSTRAINT CHK_EST_REG CHECK (EST_REG IN ('A', 'I'));
+	ADD CONSTRAINT CHK_EST_REG_CLA CHECK (EST_REG IN ('A', 'I'));
     
 ALTER TABLE tb_administrador 
 	ADD	CONSTRAINT FK_ADMIN_COD_ROL_ID FOREIGN KEY (COD_ROL) REFERENCES tb_rol (COD_ROL),
 	ADD CONSTRAINT CHK_PASS_ADMIN CHECK (char_length(PASS_ADMIN) > 2 and char_length(PASS_ADMIN) < 16),
-	ADD CONSTRAINT CHK_EST_REG CHECK (EST_REG IN ('A', 'I')),
+	ADD CONSTRAINT CHK_EST_REG_ADMIN CHECK (EST_REG IN ('A', 'I')),
 	ADD CONSTRAINT UNQ_USU_ADMIN UNIQUE (USU_ADMIN);
 	 
     
@@ -195,7 +199,7 @@ ALTER TABLE tb_det_sec_alu
 /* EST_REG
 A = ACTIVO 
 I = INACTIVO 
-R = RETIRARO 
+R = RETIRADO 
 S = SUSPENDIDO  
 
 
@@ -247,7 +251,7 @@ BEGIN
 	select p.cod_pro,p.nom_pro,p.ape_pro,p.usu_pro,p.pass_pro,p.edad_pro,p.cel_pro,p.dir_pro,p.cod_rol,r.des_rol,p.est_reg 
     from tb_profesor p 
     join tb_rol r on p.cod_rol=r.cod_rol
-    where p.est_reg = 'ACTIVO';
+    where p.est_reg = 'A';
 END$$
 DELIMITER ;
 
@@ -263,7 +267,7 @@ BEGIN
 
 	UPDATE tb_profesor
     set 
-		est_reg = 'INACTIVO'
+		est_reg = 'I'
     where cod_pro = codigo;
 END$$
 DELIMITER ;
@@ -334,7 +338,7 @@ BEGIN
     from tb_alumno al 
     join tb_carrera c on al.cod_car=c.cod_car
     join tb_rol r on al.cod_rol=r.cod_rol
-    where al.est_reg = 'ACTIVO';
+    where al.est_reg = 'A';
 END$$
 DELIMITER ;
 
@@ -351,7 +355,7 @@ CREATE PROCEDURE `SP_deleteAlu` (codigo int)
 BEGIN
 	UPDATE tb_alumno
     set 
-		est_reg = 'INACTIVO'
+		est_reg = 'I'
     where cod_alu = codigo;
 END$$
 DELIMITER ;
@@ -416,23 +420,23 @@ insert into tb_rol values (2,'Docente');
 insert into tb_rol values (3,'Alumno');
 
 
-INSERT INTO `db_proyecto_dawii`.`tb_carrera` (`COD_CAR`, `DES_CAR`, `EST_REG`) VALUES ('1', 'Computacion e Informatica', 'ACTIVO');
-INSERT INTO `db_proyecto_dawii`.`tb_carrera` (`COD_CAR`, `DES_CAR`, `EST_REG`) VALUES ('2', 'Administracion de Empresas', 'ACTIVO');
+INSERT INTO `db_proyecto_dawii`.`tb_carrera` (`COD_CAR`, `DES_CAR`, `EST_REG`) VALUES ('1', 'Computacion e Informatica', 'A');
+INSERT INTO `db_proyecto_dawii`.`tb_carrera` (`COD_CAR`, `DES_CAR`, `EST_REG`) VALUES ('2', 'Administracion de Empresas', 'A');
 
 
-INSERT INTO `db_proyecto_dawii`.`tb_administrador` (`COD_ADMIN`, `NOM_ADMIN`, `APE_ADMIN`, `USU_ADMIN`, `PASS_ADMIN`, `COD_ROL`, `EST_REG`) VALUES ('1', 'Manuel', 'Perez', 'mperez', '123', '1', 'ACTIVO');
-INSERT INTO `db_proyecto_dawii`.`tb_administrador` (`COD_ADMIN`, `NOM_ADMIN`, `APE_ADMIN`, `USU_ADMIN`, `PASS_ADMIN`, `COD_ROL`, `EST_REG`) VALUES ('2', 'Juan', 'Balazar', 'jbalazar', '123', '1', 'ACTIVO');
-
-
-
-
-INSERT INTO `db_proyecto_dawii`.`tb_alumno` (`COD_ALU`, `NOM_ALU`, `APE_ALU`, `USU_ALU`, `PASS_ALU`, `COD_CAR`, `EDAD_ALU`, `CEL_ALU`, `DIR_ALU`, `COD_ROL`, `EST_REG`) VALUES ('1', 'Juan', 'Perez', 'jperez', '123', '1', '20', '978457102', 'Av. 28 de Julio', '3', 'ACTIVO');
-INSERT INTO `db_proyecto_dawii`.`tb_alumno` (`COD_ALU`, `NOM_ALU`, `APE_ALU`, `USU_ALU`, `PASS_ALU`, `COD_CAR`, `EDAD_ALU`, `CEL_ALU`, `DIR_ALU`, `COD_ROL`, `EST_REG`) VALUES ('2', 'Erick', 'Sanchez', 'esanchez', '123', '2', '24', '994102478', 'Av.Aviacion', '3', 'ACTIVO');
+INSERT INTO `db_proyecto_dawii`.`tb_administrador` (`COD_ADMIN`, `NOM_ADMIN`, `APE_ADMIN`, `USU_ADMIN`, `PASS_ADMIN`, `COD_ROL`, `EST_REG`) VALUES ('1', 'Manuel', 'Perez', 'mperez', '123', '1', 'A');
+INSERT INTO `db_proyecto_dawii`.`tb_administrador` (`COD_ADMIN`, `NOM_ADMIN`, `APE_ADMIN`, `USU_ADMIN`, `PASS_ADMIN`, `COD_ROL`, `EST_REG`) VALUES ('2', 'Juan', 'Balazar', 'jbalazar', '123', '1', 'A');
 
 
 
-INSERT INTO `db_proyecto_dawii`.`tb_profesor` (`COD_PRO`, `NOM_PRO`, `APE_PRO`, `USU_PRO`, `PASS_PRO`, `EDAD_PRO`, `CEL_PRO`, `DIR_PRO`, `COD_ROL`, `EST_REG`) VALUES ('1', 'Carlos', 'Sotil', 'csolit', '123', '38', '945784578', 'Av. La Paz', '2', 'ACTIVO');
-INSERT INTO `db_proyecto_dawii`.`tb_profesor` (`COD_PRO`, `NOM_PRO`, `APE_PRO`, `USU_PRO`, `PASS_PRO`, `EDAD_PRO`, `CEL_PRO`, `DIR_PRO`, `COD_ROL`, `EST_REG`) VALUES ('2', 'Cristian', 'Valdez', 'cvaldez', '123', '42', '999741247', 'Av. Brasil', '2', 'ACTIVO');
+
+INSERT INTO `db_proyecto_dawii`.`tb_alumno` (`COD_ALU`, `NOM_ALU`, `APE_ALU`, `USU_ALU`, `PASS_ALU`, `COD_CAR`, `EDAD_ALU`, `CEL_ALU`, `DIR_ALU`, `COD_ROL`, `EST_REG`) VALUES ('1', 'Juan', 'Perez', 'jperez', '123', '1', '20', '978457102', 'Av. 28 de Julio', '3', 'A');
+INSERT INTO `db_proyecto_dawii`.`tb_alumno` (`COD_ALU`, `NOM_ALU`, `APE_ALU`, `USU_ALU`, `PASS_ALU`, `COD_CAR`, `EDAD_ALU`, `CEL_ALU`, `DIR_ALU`, `COD_ROL`, `EST_REG`) VALUES ('2', 'Erick', 'Sanchez', 'esanchez', '123', '2', '24', '994102478', 'Av.Aviacion', '3', 'A');
+
+
+
+INSERT INTO `db_proyecto_dawii`.`tb_profesor` (`COD_PRO`, `NOM_PRO`, `APE_PRO`, `USU_PRO`, `PASS_PRO`, `EDAD_PRO`, `CEL_PRO`, `DIR_PRO`, `COD_ROL`, `EST_REG`) VALUES ('1', 'Carlos', 'Sotil', 'csolit', '123', '38', '945784578', 'Av. La Paz', '2', 'A');
+INSERT INTO `db_proyecto_dawii`.`tb_profesor` (`COD_PRO`, `NOM_PRO`, `APE_PRO`, `USU_PRO`, `PASS_PRO`, `EDAD_PRO`, `CEL_PRO`, `DIR_PRO`, `COD_ROL`, `EST_REG`) VALUES ('2', 'Cristian', 'Valdez', 'cvaldez', '123', '42', '999741247', 'Av. Brasil', '2', 'A');
 
 
 
