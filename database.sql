@@ -79,7 +79,8 @@ drop table if exists `tb_det_sec_alu`;
 create table `tb_det_sec_alu`(
 COD_SEC int(8) not null,
 COD_ALU int(8) not null,
-primary key (COD_SEC,COD_ALU)
+key FK_DET_SEC_ALU_COD_SEC_ID (COD_SEC),
+key FK_DET_SEC_ALU_COD_ALU_ID (COD_ALU)
 );
 
 
@@ -493,6 +494,19 @@ DELIMITER ;
 
 
 
+USE `db_proyecto_dawii`;
+DROP procedure IF EXISTS `SP_listarSeccionxProfesor`;
+DELIMITER $$
+USE `db_proyecto_dawii`$$
+CREATE PROCEDURE `SP_listarSeccionxProfesor` (cod int(8))
+BEGIN
+		select s.cod_sec, s.des_sec,s.des_curs,s.nota_1,s.nota_2,s.cod_pro,p.nom_pro,s.cod_hor,h.des_hor,s.lfal_sec,s.lcla_sec,s.est_reg
+    from tb_seccion s
+    join tb_profesor p on s.cod_pro = p.cod_pro
+    join tb_horario h on s.cod_hor = h.cod_hor
+    where s.cod_sec = cod;
+END$$
+DELIMITER ;
 
 
 
@@ -533,5 +547,5 @@ INSERT INTO `db_proyecto_dawii`.`tb_horario` (`COD_HOR`, `DES_HOR`) VALUES ('3',
 
 
 INSERT INTO `db_proyecto_dawii`.`tb_seccion` (`COD_SEC`,`DES_SEC`, `DES_CURS`, `NOTA_1`, `NOTA_2`, `COD_PRO`, `COD_HOR`, `LFAL_SEC`, `LCLA_SEC`, `EST_REG`) VALUES (1,'T4BB', 'Lenguaje de Programacion', '16', '18', '1', '1', '3', '14', 'ACTIVO');
-INSERT INTO `db_proyecto_dawii`.`tb_seccion` (`COD_SEC`,`DES_SEC`, `DES_CURS`, `NOTA_1`, `NOTA_2`, `COD_PRO`, `COD_HOR`, `LFAL_SEC`, `LCLA_SEC`, `EST_REG`) VALUES (2,'T4DB', 'Gestion de proyecto', '15', '19', '1', '2', '3', '7', 'ACTIVO');
+INSERT INTO `db_proyecto_dawii`.`tb_seccion` (`COD_SEC`,`DES_SEC`, `DES_CURS`, `NOTA_1`, `NOTA_2`, `COD_PRO`, `COD_HOR`, `LFAL_SEC`, `LCLA_SEC`, `EST_REG`) VALUES (2,'T4DB', 'Gestion de proyecto', '15', '19', '2', '2', '3', '7', 'ACTIVO');
 
