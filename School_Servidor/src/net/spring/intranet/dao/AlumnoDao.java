@@ -190,4 +190,47 @@ public class AlumnoDao implements IAlumnoDao{
 		return lista;
 	}
 
+	@Override
+	public Estudiantes iniciarSesion(String user, String pass, int codRol) {
+		Estudiantes bean=null;
+		Connection cn=null;
+		CallableStatement cstm=null;
+		ResultSet rs=null;
+		try {
+			cn=MysqlDBConexion.getConexion();
+			String sql="call SP_findAlu(?)";
+			cstm=cn.prepareCall(sql);
+			cstm.setString(1, user);
+			cstm.setString(2, pass);
+			cstm.setInt(3, codRol);
+			rs=cstm.executeQuery();
+			if(rs.next()) {
+				bean=new Estudiantes();
+//				bean.setCodigoAlu(rs.getInt(1));
+				bean.setNomAlu(rs.getString(2));
+				bean.setApeAlu(rs.getString(3));
+//				bean.setUsernameAlu(rs.getString(4));
+//				bean.setPassAlu(rs.getString(5));
+//				bean.setCodCarreraAlu(rs.getInt(6));
+//				bean.setEdadAlu(rs.getInt(7));
+//				bean.setCelAlu(rs.getString(8));
+//				bean.setDirecAlu(rs.getString(9));
+//				bean.setCodRolAlu(rs.getInt(10));
+//				bean.setEstado(rs.getString(11));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();	
+		}
+		finally{
+			try {
+				if(rs!=null) rs.close();
+				if(cstm!=null) cstm.close();
+				if(cn!=null) cn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return bean;
+	}
+
 }

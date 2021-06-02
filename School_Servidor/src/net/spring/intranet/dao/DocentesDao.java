@@ -186,4 +186,47 @@ public class DocentesDao implements IDocentesDao{
 		return lista;
 	}
 
+	@Override
+	public Docentes iniciarSesion(String user, String pass, int codRol) {
+		Docentes bean=null;
+		Connection cn=null;
+		CallableStatement cstm=null;
+		ResultSet rs=null;
+		try {
+			cn=MysqlDBConexion.getConexion();
+			String sql="call SP_findDocente(?)";
+			cstm=cn.prepareCall(sql);
+			cstm.setString(1,user);
+			cstm.setString(2,pass);
+			cstm.setInt(3,codRol);
+			rs=cstm.executeQuery();
+			if(rs.next()) {
+				bean=new Docentes();
+//				bean.setCodigoPro(rs.getInt(1));
+				bean.setNomPro(rs.getString(2));
+				bean.setApePro(rs.getString(3));
+//				bean.setUsernamePro(rs.getString(4));
+//				bean.setPassPro(rs.getString(5));
+//				bean.setEdadPro(rs.getInt(6));
+//				bean.setCelPro(rs.getString(7));
+//				bean.setDirecPro(rs.getString(8));
+//				bean.setCodRolPro(rs.getInt(9));
+//				bean.setDesRolPro(rs.getString(10));
+//				bean.setEstado(rs.getString(11));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();	
+		}
+		finally{
+			try {
+				if(rs!=null) rs.close();
+				if(cstm!=null) cstm.close();
+				if(cn!=null) cn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return bean;
+	}
+
 }

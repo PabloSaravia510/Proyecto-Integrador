@@ -542,6 +542,7 @@ INSERT INTO `db_proyecto_dawii`.`tb_horario` (`COD_HOR`, `DES_HOR`) VALUES ('1',
 INSERT INTO `db_proyecto_dawii`.`tb_horario` (`COD_HOR`, `DES_HOR`) VALUES ('2', '2021-03-11 15:05');
 INSERT INTO `db_proyecto_dawii`.`tb_horario` (`COD_HOR`, `DES_HOR`) VALUES ('3', '2021-03-11 18:05');
 
+<<<<<<< HEAD
 
 INSERT INTO `db_proyecto_dawii`.`tb_seccion` (`COD_SEC`,`DES_SEC`, `DES_CURS`, `NOTA_1`, `NOTA_2`, `COD_PRO`, `COD_HOR`, `LFAL_SEC`, `LCLA_SEC`, `EST_REG`) VALUES (1,'T4BB', 'Lenguaje de Programacion', '16', '18', '1', '1', '3', '14', 'ACTIVO');
 INSERT INTO `db_proyecto_dawii`.`tb_seccion` (`COD_SEC`,`DES_SEC`, `DES_CURS`, `NOTA_1`, `NOTA_2`, `COD_PRO`, `COD_HOR`, `LFAL_SEC`, `LCLA_SEC`, `EST_REG`) VALUES (2,'T4DB', 'Gestion de proyecto', '15', '19', '2', '2', '3', '7', 'ACTIVO');
@@ -570,6 +571,11 @@ DELIMITER ;
 call SP_InicioSesion('mperez','123',1); -- administrador
 call SP_InicioSesion('csolit','123',2); -- docente
 call SP_InicioSesion('jperez','123',3); -- estudiante
+=======
+
+INSERT INTO `db_proyecto_dawii`.`tb_seccion` (`COD_SEC`,`DES_SEC`, `DES_CURS`, `NOTA_1`, `NOTA_2`, `COD_PRO`, `COD_HOR`, `LFAL_SEC`, `LCLA_SEC`, `EST_REG`) VALUES (1,'T4BB', 'Lenguaje de Programacion', '16', '18', '1', '1', '3', '14', 'ACTIVO');
+INSERT INTO `db_proyecto_dawii`.`tb_seccion` (`COD_SEC`,`DES_SEC`, `DES_CURS`, `NOTA_1`, `NOTA_2`, `COD_PRO`, `COD_HOR`, `LFAL_SEC`, `LCLA_SEC`, `EST_REG`) VALUES (2,'T4DB', 'Gestion de proyecto', '15', '19', '2', '2', '3', '7', 'ACTIVO');
+>>>>>>> 8b334e187cbd239c84df43e5cda908398d73c634
 
 use db_proyecto_dawii;
 select   * from tb_alumno;

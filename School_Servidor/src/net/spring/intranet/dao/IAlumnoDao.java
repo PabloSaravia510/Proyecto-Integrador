@@ -11,5 +11,6 @@ public interface IAlumnoDao {
 	public int deleteAlu(int codigo);
 	public Estudiantes findAlu(int codigo);
 	public List<Estudiantes> listaEstudiantes();
-	
+	public Estudiantes iniciarSesion (String user, String pass, int codRol);
+//	segun metodo jquery, con regex definirá un codrol y este se insertará en el metodo
 }
