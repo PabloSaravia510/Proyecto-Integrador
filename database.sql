@@ -104,7 +104,7 @@ EST_REG varchar(25) not null
 drop table if exists `tb_geolocalizacion`;
 create table `tb_geolocalizacion`(
 COD_GEO int(8)  not null auto_increment primary key,
-COR_GEO char(4) not null,
+COR_GEO varchar(500) not null,
 COD_ALU int(8) not null
 );
 
@@ -506,8 +506,35 @@ END$$
 DELIMITER ;
 
 
+USE `db_proyecto_dawii`;
+DROP procedure IF EXISTS `SP_saveGeo`;
+DELIMITER $$
+USE `db_proyecto_dawii`$$
+CREATE PROCEDURE `SP_saveGeo` (cor varchar(500), codalu int (8))
+BEGIN
+	insert into tb_geolocalizacion
+    values(null,cor,codalu);
+END$$
+DELIMITER ;
 
+USE `db_proyecto_dawii`;
+DROP procedure IF EXISTS `SP_findGeo`;
+DELIMITER $$
+USE `db_proyecto_dawii`$$
+CREATE PROCEDURE `SP_findGeo` (cod int(8))
+BEGIN
+	select * from tb_geolocalizacion where cod_geo = cod;
+END$$
+DELIMITER ;
 
+DROP procedure IF EXISTS `SP_listGeos`;
+DELIMITER $$
+USE `db_proyecto_dawii`$$
+CREATE PROCEDURE `SP_listGeos` ()
+BEGIN
+	select * from tb_geolocalizacion;
+END$$
+DELIMITER ;
 
 /*---------------------------------------------------------------------------------------------------------------*/
     
