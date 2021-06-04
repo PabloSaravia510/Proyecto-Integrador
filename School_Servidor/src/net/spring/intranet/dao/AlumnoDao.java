@@ -198,7 +198,7 @@ public class AlumnoDao implements IAlumnoDao{
 		ResultSet rs=null;
 		try {
 			cn=MysqlDBConexion.getConexion();
-			String sql="call SP_findAlu(?)";
+			String sql="call SP_InicioSesion(?,?,?)";
 			cstm=cn.prepareCall(sql);
 			cstm.setString(1, user);
 			cstm.setString(2, pass);
@@ -207,8 +207,9 @@ public class AlumnoDao implements IAlumnoDao{
 			if(rs.next()) {
 				bean=new Estudiantes();
 //				bean.setCodigoAlu(rs.getInt(1));
-				bean.setNomAlu(rs.getString(2));
-				bean.setApeAlu(rs.getString(3));
+				bean.setNomAlu(rs.getString(1));
+				bean.setApeAlu(rs.getString(2));
+				bean.setDesRolAlu(rs.getString(3));
 //				bean.setUsernameAlu(rs.getString(4));
 //				bean.setPassAlu(rs.getString(5));
 //				bean.setCodCarreraAlu(rs.getInt(6));

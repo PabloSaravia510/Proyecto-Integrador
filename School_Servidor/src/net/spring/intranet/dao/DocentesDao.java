@@ -194,7 +194,7 @@ public class DocentesDao implements IDocentesDao{
 		ResultSet rs=null;
 		try {
 			cn=MysqlDBConexion.getConexion();
-			String sql="call SP_findDocente(?)";
+			String sql="call SP_InicioSesion(?,?,?)";
 			cstm=cn.prepareCall(sql);
 			cstm.setString(1,user);
 			cstm.setString(2,pass);
@@ -203,8 +203,9 @@ public class DocentesDao implements IDocentesDao{
 			if(rs.next()) {
 				bean=new Docentes();
 //				bean.setCodigoPro(rs.getInt(1));
-				bean.setNomPro(rs.getString(2));
-				bean.setApePro(rs.getString(3));
+				bean.setNomPro(rs.getString(1));
+				bean.setApePro(rs.getString(2));
+				bean.setDesRolPro(rs.getString(3));
 //				bean.setUsernamePro(rs.getString(4));
 //				bean.setPassPro(rs.getString(5));
 //				bean.setEdadPro(rs.getInt(6));
