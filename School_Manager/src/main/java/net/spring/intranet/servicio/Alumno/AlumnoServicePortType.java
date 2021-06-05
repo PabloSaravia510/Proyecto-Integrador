@@ -81,6 +81,20 @@ public interface AlumnoServicePortType {
 
     /**
      * 
+     * @param cod
+     * @return
+     *     returns java.util.List<net.spring.intranet.entidad.xsd.Estudiantes>
+     */
+    @WebMethod(action = "urn:listaEstudiantesXCarrera")
+    @WebResult(targetNamespace = "http://service.intranet.spring.net")
+    @RequestWrapper(localName = "listaEstudiantesXCarrera", targetNamespace = "http://service.intranet.spring.net", className = "net.spring.intranet.service.ListaEstudiantesXCarrera")
+    @ResponseWrapper(localName = "listaEstudiantesXCarreraResponse", targetNamespace = "http://service.intranet.spring.net", className = "net.spring.intranet.service.ListaEstudiantesXCarreraResponse")
+    public List<Estudiantes> listaEstudiantesXCarrera(
+        @WebParam(name = "cod", targetNamespace = "http://service.intranet.spring.net")
+        Integer cod);
+
+    /**
+     * 
      * @param bean
      * @return
      *     returns java.lang.Integer

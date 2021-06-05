@@ -135,7 +135,7 @@ FEC_QR datetime not null
 /*ALTER CONSTRAINT */
 
 ALTER TABLE tb_carrera
-	ADD CONSTRAINT CHK_EST_REG_CAR CHECK (EST_REG IN ('ACTIVO','INACTIVO'));
+	ADD CONSTRAINT CHK_EST_REG_CAR CHECK (EST_REG IN ('A','I'));
 
 ALTER TABLE tb_alumno
 	ADD	CONSTRAINT FK_ALU_COD_CAR_ID FOREIGN KEY (COD_CAR) REFERENCES tb_carrera (COD_CAR),
@@ -173,7 +173,7 @@ ALTER TABLE tb_clase
 ALTER TABLE tb_asistencia
 	ADD	CONSTRAINT FK_ASI_COD_ALU_ID FOREIGN KEY (COD_ALU) REFERENCES tb_alumno (COD_ALU),
     ADD	CONSTRAINT FK_ASI_COD_CLA_ID FOREIGN KEY (COD_CLA) REFERENCES tb_clase (COD_CLA),
-	ADD CONSTRAINT CHK_EST_REG_ASIS CHECK (EST_REG IN ('ASISTIDO', 'INASISTIDO'));
+	ADD CONSTRAINT CHK_EST_REG_CLA CHECK (EST_REG IN ('ASISTIDO', 'INASISTIDO'));
     
 ALTER TABLE tb_administrador 
 	ADD	CONSTRAINT FK_ADMIN_COD_ROL_ID FOREIGN KEY (COD_ROL) REFERENCES tb_rol (COD_ROL),
@@ -507,6 +507,44 @@ BEGIN
     where s.cod_sec = cod;
 END$$
 DELIMITER ;
+
+
+USE `db_proyecto_dawii`;
+DROP procedure IF EXISTS `SP_listarAluxCarrera`;
+DELIMITER $$
+USE `db_proyecto_dawii`$$
+CREATE PROCEDURE `SP_listarAluxCarrera` (cod int(8))
+BEGIN
+	select al.cod_alu,al.nom_alu,al.ape_alu,al.usu_alu,al.pass_alu,al.cod_car,c.des_car,al.edad_alu,al.cel_alu,al.dir_alu,al.cod_rol,r.des_rol,al.est_reg
+    from tb_alumno al 
+    join tb_carrera c on al.cod_car=c.cod_car
+    join tb_rol r on al.cod_rol=r.cod_rol
+    where al.cod_alu = cod;
+  
+END$$
+DELIMITER ;
+
+
+
+
+USE `db_proyecto_dawii`;
+DROP procedure IF EXISTS `SP_InicioSesion`;
+DELIMITER $$
+USE `db_proyecto_dawii`$$
+CREATE PROCEDURE `SP_InicioSesion` (usuario char(10), passw char(16))
+BEGIN
+ SELECT a.NOM_ADMIN, a.APE_ADMIN, r.DES_ROL FROM tb_administrador a INNER JOIN tb_rol r ON a.COD_ROL = r.COD_ROL
+WHERE a.USU_ADMIN = usuario AND a.PASS_ADMIN = passw AND a.COD_ROL = 1;
+
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
 
 
 

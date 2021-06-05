@@ -186,6 +186,44 @@ public class AlumnoController {
 	
 	
 	
+	@RequestMapping("/filtro")
+	public String listaAlumnoXCarrera(Model model) {
+		CarreraServicePortType soapCarre = carreraservice.getCarreraServiceHttpSoap11Endpoint();
+		List<Carrera> listaCarrera = soapCarre.listaCarreras();
+		model.addAttribute("carreras",listaCarrera);
+		return "consultaAlumnos";
+	}
+	
+	@RequestMapping("/consulta")
+	@ResponseBody
+	public List<Estudiantes> consulta(@RequestParam("codigo") int cod){
+		List<Estudiantes> lista=null;
+		try {
+
+			AlumnoServicePortType soapA = alumnoservice.getAlumnoServiceHttpSoap11Endpoint();
+			lista=soapA.listaEstudiantesXCarrera(cod);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return lista;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

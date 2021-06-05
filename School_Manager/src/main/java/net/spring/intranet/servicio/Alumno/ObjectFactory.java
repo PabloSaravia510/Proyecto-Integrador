@@ -26,7 +26,7 @@ import net.spring.intranet.entidad.Alumno.*;
 public class ObjectFactory {
 
     private final static QName _FindAluResponseReturn_QNAME = new QName("http://service.intranet.spring.net", "return");
-    private final static QName _UpdateAluBean_QNAME = new QName("http://service.intranet.spring.net", "bean");
+    private final static QName _SaveAluBean_QNAME = new QName("http://service.intranet.spring.net", "bean");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: net.spring.intranet.service
@@ -100,6 +100,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ListaEstudiantesXCarreraResponse }
+     * 
+     */
+    public ListaEstudiantesXCarreraResponse createListaEstudiantesXCarreraResponse() {
+        return new ListaEstudiantesXCarreraResponse();
+    }
+
+    /**
+     * Create an instance of {@link ListaEstudiantesXCarrera }
+     * 
+     */
+    public ListaEstudiantesXCarrera createListaEstudiantesXCarrera() {
+        return new ListaEstudiantesXCarrera();
+    }
+
+    /**
      * Create an instance of {@link SaveAlu }
      * 
      */
@@ -128,18 +144,18 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link Estudiantes }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "bean", scope = UpdateAlu.class)
-    public JAXBElement<Estudiantes> createUpdateAluBean(Estudiantes value) {
-        return new JAXBElement<Estudiantes>(_UpdateAluBean_QNAME, Estudiantes.class, UpdateAlu.class, value);
+    @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "bean", scope = SaveAlu.class)
+    public JAXBElement<Estudiantes> createSaveAluBean(Estudiantes value) {
+        return new JAXBElement<Estudiantes>(_SaveAluBean_QNAME, Estudiantes.class, SaveAlu.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Estudiantes }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "bean", scope = SaveAlu.class)
-    public JAXBElement<Estudiantes> createSaveAluBean(Estudiantes value) {
-        return new JAXBElement<Estudiantes>(_UpdateAluBean_QNAME, Estudiantes.class, SaveAlu.class, value);
+    @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "bean", scope = UpdateAlu.class)
+    public JAXBElement<Estudiantes> createUpdateAluBean(Estudiantes value) {
+        return new JAXBElement<Estudiantes>(_SaveAluBean_QNAME, Estudiantes.class, UpdateAlu.class, value);
     }
 
 }

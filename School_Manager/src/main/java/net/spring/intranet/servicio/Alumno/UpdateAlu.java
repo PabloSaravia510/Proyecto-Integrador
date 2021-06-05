@@ -1,4 +1,3 @@
-
 package net.spring.intranet.servicio.Alumno;
 
 import javax.xml.bind.JAXBElement;
