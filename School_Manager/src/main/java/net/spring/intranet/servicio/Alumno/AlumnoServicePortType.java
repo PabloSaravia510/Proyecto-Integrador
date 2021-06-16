@@ -1,6 +1,7 @@
 
 package net.spring.intranet.servicio.Alumno;
 
+
 import java.util.List;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -106,5 +107,22 @@ public interface AlumnoServicePortType {
     public Integer saveAlu(
         @WebParam(name = "bean", targetNamespace = "http://service.intranet.spring.net")
         Estudiantes bean);
+
+    /**
+     * 
+     * @param pass
+     * @param user
+     * @return
+     *     returns net.spring.intranet.entidad.xsd.Estudiantes
+     */
+    @WebMethod(action = "urn:iniciarSesionAlu")
+    @WebResult(targetNamespace = "http://service.intranet.spring.net")
+    @RequestWrapper(localName = "iniciarSesionAlu", targetNamespace = "http://service.intranet.spring.net", className = "net.spring.intranet.service.IniciarSesionAlu")
+    @ResponseWrapper(localName = "iniciarSesionAluResponse", targetNamespace = "http://service.intranet.spring.net", className = "net.spring.intranet.service.IniciarSesionAluResponse")
+    public Estudiantes iniciarSesionAlu(
+        @WebParam(name = "user", targetNamespace = "http://service.intranet.spring.net")
+        String user,
+        @WebParam(name = "pass", targetNamespace = "http://service.intranet.spring.net")
+        String pass);
 
 }

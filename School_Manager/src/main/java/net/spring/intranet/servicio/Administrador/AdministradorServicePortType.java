@@ -30,6 +30,23 @@ public interface AdministradorServicePortType {
      * @param pass
      * @param user
      * @return
+     *     returns java.lang.Integer
+     */
+    @WebMethod(action = "urn:updatePass")
+    @WebResult(targetNamespace = "http://service.intranet.spring.net")
+    @RequestWrapper(localName = "updatePass", targetNamespace = "http://service.intranet.spring.net", className = "net.spring.intranet.service.UpdatePass")
+    @ResponseWrapper(localName = "updatePassResponse", targetNamespace = "http://service.intranet.spring.net", className = "net.spring.intranet.service.UpdatePassResponse")
+    public Integer updatePass(
+        @WebParam(name = "user", targetNamespace = "http://service.intranet.spring.net")
+        String user,
+        @WebParam(name = "pass", targetNamespace = "http://service.intranet.spring.net")
+        String pass);
+
+    /**
+     * 
+     * @param pass
+     * @param user
+     * @return
      *     returns net.spring.intranet.entidad.xsd.Administrador
      */
     @WebMethod(action = "urn:iniciarSesion")

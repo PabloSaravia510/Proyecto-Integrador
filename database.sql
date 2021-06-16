@@ -199,11 +199,37 @@ A = ASISTIDO
 I = INASISTIDO 
 */
 
--------------------------------------------------------------------------------------------------------------
+---------------------------/*STORED PROCEDURE*/----------------------------------------------------------------------------------
+
+/*-------LOGIN ADMINISTRADOR---------------*/
+USE `db_proyecto_dswii`;
+DROP procedure IF EXISTS `SP_InicioSesion`;
+DELIMITER $$
+USE `db_proyecto_dswii`$$
+CREATE PROCEDURE `SP_InicioSesion` (usuario char(10), passw char(16))
+BEGIN
+ SELECT a.NOM_ADMIN, a.APE_ADMIN, r.DES_ROL FROM tb_administrador a INNER JOIN tb_rol r ON a.COD_ROL = r.COD_ROL
+WHERE a.USU_ADMIN = usuario AND a.PASS_ADMIN = passw;
+END$$
+DELIMITER ;
+
+USE `db_proyecto_dswii`;
+DROP procedure IF EXISTS `SP_updatePass`;
+DELIMITER $$
+USE `db_proyecto_dswii`$$
+CREATE PROCEDURE `SP_updatePass` (usuario char(10), passw char(16))
+BEGIN
+	update tb_administrador
+	set 
+		   pass_admin = usuario
+	where  usu_admin = passw;
+END$$
+DELIMITER ;
 
 
 
-/*STORE PROCEDURE*/
+
+/*-------------REFENCIAS--------------------*/
 USE `db_proyecto_dswii`;
 DROP procedure IF EXISTS `SP_listarRol`;
 DELIMITER $$
@@ -214,8 +240,6 @@ BEGIN
 END$$
 DELIMITER ;
 
-
-
 USE `db_proyecto_dswii`;
 DROP procedure IF EXISTS `SP_listarCarrera`;
 DELIMITER $$
@@ -225,7 +249,6 @@ BEGIN
 	select * from tb_carrera;
 END$$
 DELIMITER ;
-
 
 USE `db_proyecto_dswii`;
 DROP procedure IF EXISTS `SP_listarHorario`;
@@ -238,7 +261,9 @@ END$$
 DELIMITER ;
 
 
-/*-----------------------------------------------------------*/
+
+
+/*------------------------DOCENTE-----------------------------------*/
 
 USE `db_proyecto_dswii`;
 DROP procedure IF EXISTS `SP_listarDocentes`;
@@ -251,7 +276,6 @@ BEGIN
     join tb_rol r on p.cod_rol=r.cod_rol;
 END$$
 DELIMITER ;
-
 
 
 
@@ -271,8 +295,6 @@ DELIMITER ;
 
 
 
-
-
 USE `db_proyecto_dswii`;
 DROP procedure IF EXISTS `SP_saveDocente`;
 DELIMITER $$
@@ -283,7 +305,6 @@ BEGIN
     values (null,nom,ape,usu,pass,edad,cel,dir,rol, estado);
 END$$
 DELIMITER ;
-
 
 
 USE `db_proyecto_dswii`;
@@ -322,8 +343,9 @@ DELIMITER ;
 
 
 
-/*-----------------------------------------------------------*/
 
+
+/*----------------------ALUMNO-------------------------------------*/
 
 USE `db_proyecto_dswii`;
 DROP procedure IF EXISTS `SP_listarAlu`;
@@ -339,10 +361,6 @@ END$$
 DELIMITER ;
 
 
-
-
-
-
 USE `db_proyecto_dswii`;
 DROP procedure IF EXISTS `SP_deleteAlu`;
 DELIMITER $$
@@ -356,8 +374,6 @@ BEGIN
 END$$
 DELIMITER ;
 
-
-
 USE `db_proyecto_dswii`;
 DROP procedure IF EXISTS `SP_saveAlu`;
 DELIMITER $$
@@ -368,8 +384,6 @@ BEGIN
     values(null,nom,ape,usu,pass,carrera,edad,cel,dir,rol,estado);
 END$$
 DELIMITER ;
-
-
 
 
 USE `db_proyecto_dswii`;
@@ -405,7 +419,9 @@ BEGIN
 END$$
 DELIMITER ;
 
-/*-------------------------------------------------------------------------------------*/
+
+
+/*--------------------------SECCION-----------------------------------------------------------*/
 
 USE `db_proyecto_dswii`;
 DROP procedure IF EXISTS `SP_saveSeccion`;
@@ -417,7 +433,6 @@ BEGIN
     values (null,seccion,curso,codpro,codhora,lfal,lcla,estado);
 END$$
 DELIMITER ;
-
 
 USE `db_proyecto_dswii`;
 DROP procedure IF EXISTS `SP_updateSeccion`;
@@ -478,7 +493,9 @@ BEGIN
 END$$
 DELIMITER ;
 
-/*-----------------------------------------------------------------------------------------------------*/
+
+
+/*------------------------------PROFESOR-----------------------------------------------------------------------*/
 
 USE `db_proyecto_dswii`;
 DROP procedure IF EXISTS `SP_listarSeccionxProfesor`;
@@ -511,25 +528,9 @@ END$$
 DELIMITER ;
 
 
-/*-----------------------------------------------------------------------------------------------------*/
 
 
-USE `db_proyecto_dswii`;
-DROP procedure IF EXISTS `SP_InicioSesion`;
-DELIMITER $$
-USE `db_proyecto_dswii`$$
-CREATE PROCEDURE `SP_InicioSesion` (usuario char(10), passw char(16))
-BEGIN
- SELECT a.NOM_ADMIN, a.APE_ADMIN, r.DES_ROL FROM tb_administrador a INNER JOIN tb_rol r ON a.COD_ROL = r.COD_ROL
-WHERE a.USU_ADMIN = usuario AND a.PASS_ADMIN = passw AND a.COD_ROL = 1;
-END$$
-DELIMITER ;
-
-
-
-
-/*-----------------------------------------------------------------------------------------------------*/
-
+/*-----------------------DET_SEC_ALU--------------------------------------*/
 
 USE `db_proyecto_dswii`;
 DROP procedure IF EXISTS `SP_saveDet_Sec_Alu`;
@@ -541,7 +542,6 @@ BEGIN
     values (null,sec,nota1,nota2,alu);
 END$$
 DELIMITER ;
-
 
 
 USE `db_proyecto_dswii`;
@@ -588,6 +588,7 @@ BEGIN
 END$$
 DELIMITER ;
 
+
 /*--LISTA PARA EL ADMINISTRADOR // PARA EL ALUMNO SERA POR SU USERNAME*/
 USE `db_proyecto_dswii`;
 DROP procedure IF EXISTS `SP_listarDet_sec_aluxAlumnos`;
@@ -604,7 +605,78 @@ END$$
 DELIMITER ;
 
 
+/*
+tb_asistencia
+EST_REG
+A = ASISTIDO 
+I = INASISTIDO 
+*/
+/*--------------------------ASISTENCIA-------------------------*/
+USE `db_proyecto_dswii`;
+DROP procedure IF EXISTS `SP_listarAsistencia`;
+DELIMITER $$
+USE `db_proyecto_dswii`$$
+CREATE PROCEDURE `SP_listarAsistencia` ()
+BEGIN
+	select a.cod_asi,a.cod_alu,alu.nom_alu,a.cod_sec,s.des_sec,s.des_curs,s.lfal_sec,a.est_reg
+    from tb_asistencia a 
+    join tb_alumno alu on a.cod_alu = alu.cod_alu
+    join tb_seccion s on a.cod_sec = s.cod_sec;
+END$$
+DELIMITER ;
 
+
+USE `db_proyecto_dswii`;
+DROP procedure IF EXISTS `SP_saveAsistencia`;
+DELIMITER $$
+USE `db_proyecto_dswii`$$
+CREATE PROCEDURE `SP_saveAsistencia` (alu int(8),sec int(8), estado varchar(25))
+BEGIN
+	insert into tb_asistencia 
+    values (null,alu,sec,estado);
+END$$
+DELIMITER ;
+
+
+USE `db_proyecto_dswii`;
+DROP procedure IF EXISTS `SP_updateAsistencia`;
+DELIMITER $$
+USE `db_proyecto_dswii`$$
+CREATE PROCEDURE `SP_updateAsistencia`  (asi  int(8))
+BEGIN
+	update tb_asistencia
+    set
+        est_reg = 'INASISTIDO'
+	where cod_asi = asi;
+END$$
+DELIMITER ;
+
+
+USE `db_proyecto_dswii`;
+DROP procedure IF EXISTS `SP_findAsistencia`;
+DELIMITER $$
+USE `db_proyecto_dswii`$$
+CREATE PROCEDURE `SP_findAsistencia` (asi  int(8))
+BEGIN
+	select *
+    from tb_asistencia
+    where cod_asi = asi;
+END$$
+DELIMITER ;
+
+USE `db_proyecto_dswii`;
+DROP procedure IF EXISTS `SP_listarAsistenciaxAlumno`;
+DELIMITER $$
+USE `db_proyecto_dswii`$$
+CREATE PROCEDURE `SP_listarAsistenciaxAlumno` (alu int(8))
+BEGIN
+	select a.cod_asi,a.cod_alu,alu.nom_alu,a.cod_sec,s.des_sec,s.des_curs,s.lfal_sec,a.est_reg
+    from tb_asistencia a 
+    join tb_alumno alu on a.cod_alu = alu.cod_alu
+    join tb_seccion s on a.cod_sec = s.cod_sec
+    where a.cod_alu = alu;
+END$$
+DELIMITER ;
 
 
 
@@ -627,6 +699,8 @@ INSERT INTO `db_proyecto_dswii`.`tb_carrera` (`COD_CAR`, `DES_CAR`, `EST_REG`) V
 
 INSERT INTO `db_proyecto_dswii`.`tb_administrador` (`COD_ADMIN`, `NOM_ADMIN`, `APE_ADMIN`, `USU_ADMIN`, `PASS_ADMIN`, `COD_ROL`, `EST_REG`) VALUES ('1', 'Manuel', 'Perez', 'mperez', '123', '1', 'ACTIVO');
 INSERT INTO `db_proyecto_dswii`.`tb_administrador` (`COD_ADMIN`, `NOM_ADMIN`, `APE_ADMIN`, `USU_ADMIN`, `PASS_ADMIN`, `COD_ROL`, `EST_REG`) VALUES ('2', 'Juan', 'Balazar', 'jbalazar', '123', '1', 'ACTIVO');
+INSERT INTO `db_proyecto_dswii`.`tb_administrador` (`COD_ADMIN`, `NOM_ADMIN`, `APE_ADMIN`, `USU_ADMIN`, `PASS_ADMIN`, `COD_ROL`, `EST_REG`) VALUES ('3', 'Akira', 'Saravia', 'asaravia', '123', '1', 'ACTIVO');
+
 
 
 

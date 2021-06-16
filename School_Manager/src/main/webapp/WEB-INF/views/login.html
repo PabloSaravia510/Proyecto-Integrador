@@ -286,7 +286,7 @@ input[type=text]:placeholder {
   <div id="formContent">
 
     <!-- Login Form -->
-    <form method="POST" id="idRegistra" th:action="@{/login/ingresar}" th:object="${adminObj}">
+    <form method="POST" id="idRegistra" th:action="@{/login/ingresar}" th:object="${adminObj}" >
       
       <input type="text" id="login" class="fadeIn second" name="usu" placeholder="username">
       
