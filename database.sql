@@ -522,7 +522,7 @@ BEGIN
     from tb_alumno al 
     join tb_carrera c on al.cod_car=c.cod_car
     join tb_rol r on al.cod_rol=r.cod_rol
-    where al.cod_alu = cod;
+    where al.cod_car = cod;
   
 END$$
 DELIMITER ;
@@ -695,6 +695,7 @@ insert into tb_rol values (3,'Alumno');
 
 INSERT INTO `db_proyecto_dswii`.`tb_carrera` (`COD_CAR`, `DES_CAR`, `EST_REG`) VALUES ('1', 'Computación Informática', 'ACTIVO');
 INSERT INTO `db_proyecto_dswii`.`tb_carrera` (`COD_CAR`, `DES_CAR`, `EST_REG`) VALUES ('2', 'Diseño Gráfico', 'ACTIVO');
+INSERT INTO `db_proyecto_dswii`.`tb_carrera` (`COD_CAR`, `DES_CAR`, `EST_REG`) VALUES ('3', 'Administracion', 'ACTIVO');
 
 
 INSERT INTO `db_proyecto_dswii`.`tb_administrador` (`COD_ADMIN`, `NOM_ADMIN`, `APE_ADMIN`, `USU_ADMIN`, `PASS_ADMIN`, `COD_ROL`, `EST_REG`) VALUES ('1', 'Manuel', 'Perez', 'mperez', '123', '1', 'ACTIVO');
@@ -719,6 +720,7 @@ INSERT INTO `db_proyecto_dswii`.`tb_profesor` (`COD_PRO`, `NOM_PRO`, `APE_PRO`, 
 INSERT INTO `db_proyecto_dswii`.`tb_horario` (`COD_HOR`, `DES_HOR`) VALUES ('1', '2021-03-11 13:05');
 INSERT INTO `db_proyecto_dswii`.`tb_horario` (`COD_HOR`, `DES_HOR`) VALUES ('2', '2021-03-11 15:05');
 INSERT INTO `db_proyecto_dswii`.`tb_horario` (`COD_HOR`, `DES_HOR`) VALUES ('3', '2021-03-11 18:05');
+INSERT INTO `db_proyecto_dswii`.`tb_horario` (`COD_HOR`, `DES_HOR`) VALUES ('4', '2021-04-15 20:30');
 
 
 INSERT INTO `db_proyecto_dswii`.`tb_seccion` (`COD_SEC`,`DES_SEC`, `DES_CURS`, `COD_PRO`, `COD_HOR`, `LFAL_SEC`, `LCLA_SEC`, `EST_REG`) VALUES (1,'T4BB', 'Matemática',  '1', '1', '3', '14', 'ACTIVO');
