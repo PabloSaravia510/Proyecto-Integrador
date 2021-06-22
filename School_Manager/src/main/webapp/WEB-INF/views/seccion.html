@@ -4,16 +4,18 @@
 <meta charset="ISO-8859-1">
 <title>SECCION</title>
  
-   	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
    	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-	<link rel="stylesheet" th:href="@{/resources/datepicker/bootstrap-datepicker.css}">
+
+
 	<link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.css}">
 	<link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.min.css}">
    	<link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"/>
  	<link rel="stylesheet" th:href="@{/resources/css/index.css}">
  	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script th:src="@{/resources/js/accordion.js}"></script>
+
 
 
 <style type="text/css">
@@ -293,7 +295,7 @@
 																	<label for="exampleInputEmail1"><b>Profesor</b></label><br>
 															        <i class="fas fa-prescription-bottle-alt form-control-feedback2"></i>
 																    <select class="form-control" name="profesor" id="idProfesor">
-																      <option value="0">[Seleccione Profesor]</option>
+																      <option value=" ">[Seleccione Profesor]</option>
 																      <option th:each="bean:${profesores}"
 																      		  th:value="${bean.codigoPro}"
 																      		  th:utext="${bean.nomPro.value}">
@@ -307,7 +309,7 @@
 																	<label for="exampleInputEmail1"><b>Horario</b></label><br>
 															        <i class="fas fa-prescription-bottle-alt form-control-feedback2"></i>
 																    <select class="form-control" name="horario" id="idHorario">
-																      <option value="0">[Seleccione Horario]</option>
+																      <option value=" ">[Seleccione Horario]</option>
 																      <option th:each="bean:${horarios}"
 																      		  th:value="${bean.codHorario}"
 																      		  th:utext="${bean.desHorario.value}">
@@ -453,17 +455,102 @@
 	
 	
 	<script type="text/javascript">    
-	    $(document).ready(function(){     
-	
+	    $(document).ready(function(){  
+	    	
 	        $('#idRegistra').bootstrapValidator({     
 	        	feedbackIcons: {
 	                valid: 'glyphicon glyphicon-ok',
 	                invalid: 'glyphicon glyphicon-remove',
 	                validating: 'glyphicon glyphicon-refresh'
-	            }
+	            },
+	        	 fields:{
+	        		 
+	        		 Seccion: {
+	     	    		selector:'#idSeccion',   
+	                    validators: { 
+	                    	stringLength: {
+	                            min: 4,
+	                            max: 4,
+	                            message: 'Debe tener 4 caracteres '
+	                          },
+	                        notEmpty: {    
+	                            message: 'Este campo es obligatorio'    
+	                        }    
+	                    }
+	                },
+	                Curso: {
+	     	    		selector:'#idCurso',   
+	                    validators: {    
+	                        notEmpty: {    
+	                            message: 'Este campo es obligatorio'    
+	                        },    
+	     	    			regexp: {  
+	     	    				regexp: /^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]{3,75}$/,
+	                            message: 'Solo se admite desde 3 a 75 letras'    
+	                        }      
+	                    }
+	                },
+	                Profesor: {
+	     	    		selector:'#idProfesor',   
+	                    validators: {    
+	                        notEmpty: {    
+	                            message: 'Seleccione profesor'    
+	                        },					
+	                    }    
+	                },
+	                Horario: {
+	     	    		selector:'#idHorario',   
+	                    validators: {    
+	                        notEmpty: {    
+	                            message: 'Seleccione horario'    
+	                        },					
+	                    }    
+	                },
+	                LimiteFaltas: {
+	     	    		selector:'#idLfalta',      
+	                    validators: {    
+	                    	stringLength: {
+	                            min: 1,
+	                            max: 1,
+	                            message: 'Debe ser 1 digito '
+	                          },
+	                        notEmpty: {    
+	                        	message: 'Este campo es obligatorio'    
+	                        },
+	                        regexp: {    
+	                        	regexp: /^\d{1}/,  
+	                            message: 'Solo admite un número entero '
+	                        }
+	                    }    
+	                },
+	                LimiteClases: {
+	     	    		selector:'#idLclases',      
+	                    validators: {    
+	                    	stringLength: {
+	                            min: 1,
+	                            max: 2,
+	                            message: 'Solo máximo 2 dígitos '
+	                          },
+	                        notEmpty: {    
+	                        	message: 'Este campo es obligatorio'    
+	                        },
+	                        regexp: {    
+	                        	regexp: /^\d{1,2}/,  
+	                            message: 'Solo admite números enteros '
+	                        }
+	                    }    
+	                }
+	        	 }
 	        });   				
 	    });    
-	</script> 
+	</script>   
+
+	
+	
+	
+	<!-- watson assistant -->
+	<script> (function(b,c){var e=document.createElement('link');e.rel='stylesheet',e.type='text/css',e.href='https://chatboxlive.blahbox.net/static/css/main.css',document.getElementsByTagName('head')[0].appendChild(e); var f=document.createElement('script');f.onload=function(){var g;if(c)g='previewInit';else{var h=document.createElement('div');g='cbinit',h.id='cbinit',document.body.append(h)} console.log(document.querySelector('#'+g)),chatbox.initChat(document.querySelector('#'+g),b,c)},f.src='https://chatboxlive.blahbox.net/static/js/chat-lib.js',document.getElementsByTagName('head')[0].appendChild(f)}) ('ef574ac2245b1bb3b8a70865f0fd8925', 0); </script>
+	
 	
 	
 </body>

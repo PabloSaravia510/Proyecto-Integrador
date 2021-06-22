@@ -126,38 +126,50 @@
        
         <main>
             <div class="cards">
-                <div class="card-single">
-                    <div>
-                        <h1>54</h1>
-                        <span>Estudiantes</span>
-                    </div>
+               
+                <div class="card-single" >
+	                    <div>
+	                       <a th:href="@{/alumno/}" style="color: black;">
+	                       		 <h1> Estudiantes</h1>
+	          					<span>Estudiantes</span>
+	          				</a>
+	                    </div>
                          <div><span class="las la-users"></span></div>
                     
                 </div>
-
+		
+                
                 <div class="card-single">
-                    <div>
-                        <h1>79</h1>
-                        <span>Docentes</span>
-                    </div>
+	                    <div>
+	                    	 <a th:href="@{/docente/}" style="color: black;">
+		                         <h1> Docentes</h1>
+		                        <span>Docentes</span>
+	                        </a>
+	                    </div>
                         <div><span class="las la-clipboard"></span></div>
                 </div>
 
+               
                 <div class="card-single">
                     <div>
-                        <h1>124</h1>
-                        <span>Secciones</span>
+	                     <a th:href="@{/seccion/filtro}" style="color: black;">	
+		                        <h1>Secciones</h1>
+		                        <span>Secciones</span>
+	                     </a>
                     </div>
                         <div><span class="las la-shopping-bag"></span></div>
                     
                 </div>
 
+               
                 <div class="card-single">
                     <div>
-                        <h1>$6k</h1>
-                        <span>Carreras</span>
+                    	<a  th:href="@{/asistencia/}" style="color: black;">
+	                        <h1>Asistencia</h1>
+	                        <span>Asistencia</span>
+                        </a>
                     </div>
-                        <div><span class="lab la-google-wallet"></span></div>
+                    <div><span class="lab la-google-wallet"></span></div>
                     
                 </div>
             </div>
@@ -169,21 +181,12 @@
     
     
     
-    
-	    
-	   <script>
-		  window.watsonAssistantChatOptions = {
-		      integrationID: "12eab404-9f1f-4998-a66e-353ac0831235", // The ID of this integration.
-		      region: "us-south", // The region your integration is hosted in.
-		      serviceInstanceID: "cecbab16-d5c3-4522-aab0-bfe001f2a25c", // The ID of your service instance.
-		      onLoad: function(instance) { instance.render(); }
-		    };
-		  setTimeout(function(){
-		    const t=document.createElement('script');
-		    t.src="https://web-chat.global.assistant.watson.appdomain.cloud/loadWatsonAssistantChat.js";
-		    document.head.appendChild(t);
-		  });
-	</script>
+	
+	
+	<!-- watson assistant -->
+	<script> (function(b,c){var e=document.createElement('link');e.rel='stylesheet',e.type='text/css',e.href='https://chatboxlive.blahbox.net/static/css/main.css',document.getElementsByTagName('head')[0].appendChild(e); var f=document.createElement('script');f.onload=function(){var g;if(c)g='previewInit';else{var h=document.createElement('div');g='cbinit',h.id='cbinit',document.body.append(h)} console.log(document.querySelector('#'+g)),chatbox.initChat(document.querySelector('#'+g),b,c)},f.src='https://chatboxlive.blahbox.net/static/js/chat-lib.js',document.getElementsByTagName('head')[0].appendChild(f)}) ('ef574ac2245b1bb3b8a70865f0fd8925', 0); </script>
+	
+	
 	
 </body>
 </html>
