@@ -1,5 +1,5 @@
-package net.spring.intranet.servicio.Alumno;
 
+package net.spring.intranet.servicio.Alumno;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="user" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="pass" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="rol" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -32,7 +33,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "user",
-    "pass"
+    "pass",
+    "rol"
 })
 @XmlRootElement(name = "iniciarSesionAlu")
 public class IniciarSesionAlu {
@@ -41,6 +43,7 @@ public class IniciarSesionAlu {
     protected JAXBElement<String> user;
     @XmlElementRef(name = "pass", namespace = "http://service.intranet.spring.net", type = JAXBElement.class, required = false)
     protected JAXBElement<String> pass;
+    protected Integer rol;
 
     /**
      * Obtiene el valor de la propiedad user.
@@ -88,6 +91,30 @@ public class IniciarSesionAlu {
      */
     public void setPass(JAXBElement<String> value) {
         this.pass = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad rol.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
+     */
+    public Integer getRol() {
+        return rol;
+    }
+
+    /**
+     * Define el valor de la propiedad rol.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Integer }
+     *     
+     */
+    public void setRol(Integer value) {
+        this.rol = value;
     }
 
 }

@@ -46,6 +46,7 @@ public interface AdministradorServicePortType {
      * 
      * @param pass
      * @param user
+     * @param rol
      * @return
      *     returns net.spring.intranet.entidad.xsd.Administrador
      */
@@ -57,6 +58,8 @@ public interface AdministradorServicePortType {
         @WebParam(name = "user", targetNamespace = "http://service.intranet.spring.net")
         String user,
         @WebParam(name = "pass", targetNamespace = "http://service.intranet.spring.net")
-        String pass);
+        String pass,
+        @WebParam(name = "rol", targetNamespace = "http://service.intranet.spring.net")
+        Integer rol);
 
 }

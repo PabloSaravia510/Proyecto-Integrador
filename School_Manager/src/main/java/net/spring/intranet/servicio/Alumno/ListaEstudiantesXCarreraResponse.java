@@ -1,6 +1,4 @@
-
 package net.spring.intranet.servicio.Alumno;
-
 
 import java.util.ArrayList;
 import java.util.List;

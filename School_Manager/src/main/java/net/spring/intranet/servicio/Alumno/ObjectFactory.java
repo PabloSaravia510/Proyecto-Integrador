@@ -1,7 +1,6 @@
 
 package net.spring.intranet.servicio.Alumno;
 
-
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
@@ -26,8 +25,8 @@ import net.spring.intranet.entidad.Alumno.*;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _SaveAluBean_QNAME = new QName("http://service.intranet.spring.net", "bean");
     private final static QName _FindAluResponseReturn_QNAME = new QName("http://service.intranet.spring.net", "return");
+    private final static QName _SaveAluBean_QNAME = new QName("http://service.intranet.spring.net", "bean");
     private final static QName _IniciarSesionAluPass_QNAME = new QName("http://service.intranet.spring.net", "pass");
     private final static QName _IniciarSesionAluUser_QNAME = new QName("http://service.intranet.spring.net", "user");
 
@@ -127,19 +126,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link FindAlu }
-     * 
-     */
-    public FindAlu createFindAlu() {
-        return new FindAlu();
-    }
-
-    /**
      * Create an instance of {@link SaveAluResponse }
      * 
      */
     public SaveAluResponse createSaveAluResponse() {
         return new SaveAluResponse();
+    }
+
+    /**
+     * Create an instance of {@link FindAlu }
+     * 
+     */
+    public FindAlu createFindAlu() {
+        return new FindAlu();
     }
 
     /**
@@ -154,18 +153,18 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link Estudiantes }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "bean", scope = SaveAlu.class)
-    public JAXBElement<Estudiantes> createSaveAluBean(Estudiantes value) {
-        return new JAXBElement<Estudiantes>(_SaveAluBean_QNAME, Estudiantes.class, SaveAlu.class, value);
+    @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "return", scope = FindAluResponse.class)
+    public JAXBElement<Estudiantes> createFindAluResponseReturn(Estudiantes value) {
+        return new JAXBElement<Estudiantes>(_FindAluResponseReturn_QNAME, Estudiantes.class, FindAluResponse.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Estudiantes }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "return", scope = FindAluResponse.class)
-    public JAXBElement<Estudiantes> createFindAluResponseReturn(Estudiantes value) {
-        return new JAXBElement<Estudiantes>(_FindAluResponseReturn_QNAME, Estudiantes.class, FindAluResponse.class, value);
+    @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "bean", scope = SaveAlu.class)
+    public JAXBElement<Estudiantes> createSaveAluBean(Estudiantes value) {
+        return new JAXBElement<Estudiantes>(_SaveAluBean_QNAME, Estudiantes.class, SaveAlu.class, value);
     }
 
     /**

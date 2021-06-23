@@ -25,8 +25,10 @@ import net.spring.intranet.entidad.Docente.*;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _UpdateDocenteBean_QNAME = new QName("http://service.intranet.spring.net", "bean");
-    private final static QName _FindDocenteResponseReturn_QNAME = new QName("http://service.intranet.spring.net", "return");
+    private final static QName _SaveDocenteBean_QNAME = new QName("http://service.intranet.spring.net", "bean");
+    private final static QName _IniciarSesionResponseReturn_QNAME = new QName("http://service.intranet.spring.net", "return");
+    private final static QName _IniciarSesionPass_QNAME = new QName("http://service.intranet.spring.net", "pass");
+    private final static QName _IniciarSesionUser_QNAME = new QName("http://service.intranet.spring.net", "user");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: net.spring.intranet.service
@@ -92,11 +94,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link IniciarSesion }
+     * 
+     */
+    public IniciarSesion createIniciarSesion() {
+        return new IniciarSesion();
+    }
+
+    /**
      * Create an instance of {@link UpdateDocenteResponse }
      * 
      */
     public UpdateDocenteResponse createUpdateDocenteResponse() {
         return new UpdateDocenteResponse();
+    }
+
+    /**
+     * Create an instance of {@link IniciarSesionResponse }
+     * 
+     */
+    public IniciarSesionResponse createIniciarSesionResponse() {
+        return new IniciarSesionResponse();
     }
 
     /**
@@ -119,18 +137,18 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link Docentes }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "bean", scope = UpdateDocente.class)
-    public JAXBElement<Docentes> createUpdateDocenteBean(Docentes value) {
-        return new JAXBElement<Docentes>(_UpdateDocenteBean_QNAME, Docentes.class, UpdateDocente.class, value);
+    @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "bean", scope = SaveDocente.class)
+    public JAXBElement<Docentes> createSaveDocenteBean(Docentes value) {
+        return new JAXBElement<Docentes>(_SaveDocenteBean_QNAME, Docentes.class, SaveDocente.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Docentes }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "bean", scope = SaveDocente.class)
-    public JAXBElement<Docentes> createSaveDocenteBean(Docentes value) {
-        return new JAXBElement<Docentes>(_UpdateDocenteBean_QNAME, Docentes.class, SaveDocente.class, value);
+    @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "return", scope = IniciarSesionResponse.class)
+    public JAXBElement<Docentes> createIniciarSesionResponseReturn(Docentes value) {
+        return new JAXBElement<Docentes>(_IniciarSesionResponseReturn_QNAME, Docentes.class, IniciarSesionResponse.class, value);
     }
 
     /**
@@ -139,7 +157,34 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "return", scope = FindDocenteResponse.class)
     public JAXBElement<Docentes> createFindDocenteResponseReturn(Docentes value) {
-        return new JAXBElement<Docentes>(_FindDocenteResponseReturn_QNAME, Docentes.class, FindDocenteResponse.class, value);
+        return new JAXBElement<Docentes>(_IniciarSesionResponseReturn_QNAME, Docentes.class, FindDocenteResponse.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Docentes }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "bean", scope = UpdateDocente.class)
+    public JAXBElement<Docentes> createUpdateDocenteBean(Docentes value) {
+        return new JAXBElement<Docentes>(_SaveDocenteBean_QNAME, Docentes.class, UpdateDocente.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "pass", scope = IniciarSesion.class)
+    public JAXBElement<String> createIniciarSesionPass(String value) {
+        return new JAXBElement<String>(_IniciarSesionPass_QNAME, String.class, IniciarSesion.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "user", scope = IniciarSesion.class)
+    public JAXBElement<String> createIniciarSesionUser(String value) {
+        return new JAXBElement<String>(_IniciarSesionUser_QNAME, String.class, IniciarSesion.class, value);
     }
 
 }

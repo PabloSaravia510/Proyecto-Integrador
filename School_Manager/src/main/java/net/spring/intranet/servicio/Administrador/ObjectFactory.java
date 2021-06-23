@@ -25,8 +25,8 @@ import net.spring.intranet.entidad.Administrador.*;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _IniciarSesionPass_QNAME = new QName("http://service.intranet.spring.net", "pass");
-    private final static QName _IniciarSesionUser_QNAME = new QName("http://service.intranet.spring.net", "user");
+    private final static QName _UpdatePassPass_QNAME = new QName("http://service.intranet.spring.net", "pass");
+    private final static QName _UpdatePassUser_QNAME = new QName("http://service.intranet.spring.net", "user");
     private final static QName _IniciarSesionResponseReturn_QNAME = new QName("http://service.intranet.spring.net", "return");
 
     /**
@@ -72,27 +72,9 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "pass", scope = IniciarSesion.class)
-    public JAXBElement<String> createIniciarSesionPass(String value) {
-        return new JAXBElement<String>(_IniciarSesionPass_QNAME, String.class, IniciarSesion.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "user", scope = IniciarSesion.class)
-    public JAXBElement<String> createIniciarSesionUser(String value) {
-        return new JAXBElement<String>(_IniciarSesionUser_QNAME, String.class, IniciarSesion.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
     @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "pass", scope = UpdatePass.class)
     public JAXBElement<String> createUpdatePassPass(String value) {
-        return new JAXBElement<String>(_IniciarSesionPass_QNAME, String.class, UpdatePass.class, value);
+        return new JAXBElement<String>(_UpdatePassPass_QNAME, String.class, UpdatePass.class, value);
     }
 
     /**
@@ -101,7 +83,25 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "user", scope = UpdatePass.class)
     public JAXBElement<String> createUpdatePassUser(String value) {
-        return new JAXBElement<String>(_IniciarSesionUser_QNAME, String.class, UpdatePass.class, value);
+        return new JAXBElement<String>(_UpdatePassUser_QNAME, String.class, UpdatePass.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "pass", scope = IniciarSesion.class)
+    public JAXBElement<String> createIniciarSesionPass(String value) {
+        return new JAXBElement<String>(_UpdatePassPass_QNAME, String.class, IniciarSesion.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://service.intranet.spring.net", name = "user", scope = IniciarSesion.class)
+    public JAXBElement<String> createIniciarSesionUser(String value) {
+        return new JAXBElement<String>(_UpdatePassUser_QNAME, String.class, IniciarSesion.class, value);
     }
 
     /**

@@ -41,10 +41,10 @@ public class AdministradorController {
 	
 
 	@RequestMapping("/ingresar")
-	public String buscar(@RequestParam("usu") String usu,@RequestParam("pass") String pass) {
+	public String buscar(@RequestParam("usu") String usu,@RequestParam("pass") String pass, @RequestParam("rol") int rol) {
 		AdministradorServicePortType soap = administradorservice.getAdministradorServiceHttpSoap11Endpoint();
 
-		 soap.iniciarSesion(usu, pass);
+		 soap.iniciarSesion(usu, pass,rol);
 
 			return "redirect:/principal/";
 	

@@ -84,6 +84,26 @@ public interface DocenteServicePortType {
 
     /**
      * 
+     * @param pass
+     * @param user
+     * @param rol
+     * @return
+     *     returns net.spring.intranet.entidad.xsd.Docentes
+     */
+    @WebMethod(action = "urn:iniciarSesion")
+    @WebResult(targetNamespace = "http://service.intranet.spring.net")
+    @RequestWrapper(localName = "iniciarSesion", targetNamespace = "http://service.intranet.spring.net", className = "net.spring.intranet.service.IniciarSesion")
+    @ResponseWrapper(localName = "iniciarSesionResponse", targetNamespace = "http://service.intranet.spring.net", className = "net.spring.intranet.service.IniciarSesionResponse")
+    public Docentes iniciarSesion(
+        @WebParam(name = "user", targetNamespace = "http://service.intranet.spring.net")
+        String user,
+        @WebParam(name = "pass", targetNamespace = "http://service.intranet.spring.net")
+        String pass,
+        @WebParam(name = "rol", targetNamespace = "http://service.intranet.spring.net")
+        Integer rol);
+
+    /**
+     * 
      * @return
      *     returns java.util.List<net.spring.intranet.entidad.xsd.Docentes>
      */
