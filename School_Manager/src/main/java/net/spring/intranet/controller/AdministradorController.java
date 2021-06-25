@@ -13,7 +13,7 @@ import net.spring.intranet.servicio.Administrador.AdministradorServicePortType;
 
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping("/administrador")
 public class AdministradorController {
 
 	

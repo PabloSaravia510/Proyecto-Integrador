@@ -206,10 +206,17 @@ USE `db_proyecto_dswii`;
 DROP procedure IF EXISTS `SP_InicioSesion`;
 DELIMITER $$
 USE `db_proyecto_dswii`$$
-CREATE PROCEDURE `SP_InicioSesion` (usuario char(10), passw char(16))
+CREATE PROCEDURE `SP_InicioSesion` (usuario char(20), passw char(16), p_rol int)
 BEGIN
- SELECT a.NOM_ADMIN, a.APE_ADMIN, r.DES_ROL FROM tb_administrador a INNER JOIN tb_rol r ON a.COD_ROL = r.COD_ROL
-WHERE a.USU_ADMIN = usuario AND a.PASS_ADMIN = passw;
+	IF p_rol = 0
+		then SELECT a.NOM_ADMIN, a.APE_ADMIN, r.DES_ROL FROM tb_administrador a INNER JOIN tb_rol r ON a.COD_ROL = r.COD_ROL WHERE a.USU_ADMIN = usuario AND a.PASS_ADMIN = passw;
+	elseif p_rol = 1
+		then SELECT p.NOM_PRO , p.APE_PRO, r.DES_ROL FROM tb_profesor p INNER JOIN tb_rol r ON p.COD_ROL = r.COD_ROL WHERE p.USU_PRO = usuario AND p.PASS_PRO = passw;
+	elseif p_rol = 2
+		then SELECT al.NOM_ALU , al.APE_ALU, r.DES_ROL  FROM tb_alumno al INNER JOIN tb_rol r ON al.COD_ROL = r.COD_ROL WHERE al.USU_ALU = usuario AND al.PASS_ALU = passw;
+    else
+		select null;
+	end if;
 END$$
 DELIMITER ;
 
@@ -698,21 +705,21 @@ INSERT INTO `db_proyecto_dswii`.`tb_carrera` (`COD_CAR`, `DES_CAR`, `EST_REG`) V
 INSERT INTO `db_proyecto_dswii`.`tb_carrera` (`COD_CAR`, `DES_CAR`, `EST_REG`) VALUES ('3', 'Administracion', 'ACTIVO');
 
 
-INSERT INTO `db_proyecto_dswii`.`tb_administrador` (`COD_ADMIN`, `NOM_ADMIN`, `APE_ADMIN`, `USU_ADMIN`, `PASS_ADMIN`, `COD_ROL`, `EST_REG`) VALUES ('1', 'Manuel', 'Perez', 'mperez', '123', '1', 'ACTIVO');
-INSERT INTO `db_proyecto_dswii`.`tb_administrador` (`COD_ADMIN`, `NOM_ADMIN`, `APE_ADMIN`, `USU_ADMIN`, `PASS_ADMIN`, `COD_ROL`, `EST_REG`) VALUES ('2', 'Juan', 'Balazar', 'jbalazar', '123', '1', 'ACTIVO');
-INSERT INTO `db_proyecto_dswii`.`tb_administrador` (`COD_ADMIN`, `NOM_ADMIN`, `APE_ADMIN`, `USU_ADMIN`, `PASS_ADMIN`, `COD_ROL`, `EST_REG`) VALUES ('3', 'Akira', 'Saravia', 'asaravia', '123', '1', 'ACTIVO');
+INSERT INTO `db_proyecto_dswii`.`tb_administrador` (`COD_ADMIN`, `NOM_ADMIN`, `APE_ADMIN`, `USU_ADMIN`, `PASS_ADMIN`, `COD_ROL`, `EST_REG`) VALUES ('1', 'Manuel', 'Perez', 'smperez', '123', '1', 'ACTIVO');
+INSERT INTO `db_proyecto_dswii`.`tb_administrador` (`COD_ADMIN`, `NOM_ADMIN`, `APE_ADMIN`, `USU_ADMIN`, `PASS_ADMIN`, `COD_ROL`, `EST_REG`) VALUES ('2', 'Juan', 'Balazar', 'sjbalazar', '123', '1', 'ACTIVO');
+INSERT INTO `db_proyecto_dswii`.`tb_administrador` (`COD_ADMIN`, `NOM_ADMIN`, `APE_ADMIN`, `USU_ADMIN`, `PASS_ADMIN`, `COD_ROL`, `EST_REG`) VALUES ('3', 'Akira', 'Saravia', 'sasaravia', '123', '1', 'ACTIVO');
 
 
 
 
 
-INSERT INTO `db_proyecto_dswii`.`tb_alumno` (`COD_ALU`, `NOM_ALU`, `APE_ALU`, `USU_ALU`, `PASS_ALU`, `COD_CAR`, `EDAD_ALU`, `CEL_ALU`, `DIR_ALU`, `COD_ROL`, `EST_REG`) VALUES ('1', 'Juan', 'Perez', 'jperez', '123', '1', '20', '978457102', 'Av. 28 de Julio', '3', 'ACTIVO');
-INSERT INTO `db_proyecto_dswii`.`tb_alumno` (`COD_ALU`, `NOM_ALU`, `APE_ALU`, `USU_ALU`, `PASS_ALU`, `COD_CAR`, `EDAD_ALU`, `CEL_ALU`, `DIR_ALU`, `COD_ROL`, `EST_REG`) VALUES ('2', 'Erick', 'Sanchez', 'esanchez', '123', '2', '24', '994102478', 'Av.Aviacion', '3', 'ACTIVO');
+INSERT INTO `db_proyecto_dswii`.`tb_alumno` (`COD_ALU`, `NOM_ALU`, `APE_ALU`, `USU_ALU`, `PASS_ALU`, `COD_CAR`, `EDAD_ALU`, `CEL_ALU`, `DIR_ALU`, `COD_ROL`, `EST_REG`) VALUES ('1', 'Juan', 'Perez', 'ajperez', '123', '1', '20', '978457102', 'Av. 28 de Julio', '3', 'ACTIVO');
+INSERT INTO `db_proyecto_dswii`.`tb_alumno` (`COD_ALU`, `NOM_ALU`, `APE_ALU`, `USU_ALU`, `PASS_ALU`, `COD_CAR`, `EDAD_ALU`, `CEL_ALU`, `DIR_ALU`, `COD_ROL`, `EST_REG`) VALUES ('2', 'Erick', 'Sanchez', 'aesanchez', '123', '2', '24', '994102478', 'Av.Aviacion', '3', 'ACTIVO');
 
 
 
-INSERT INTO `db_proyecto_dswii`.`tb_profesor` (`COD_PRO`, `NOM_PRO`, `APE_PRO`, `USU_PRO`, `PASS_PRO`, `EDAD_PRO`, `CEL_PRO`, `DIR_PRO`, `COD_ROL`, `EST_REG`) VALUES ('1', 'Carlos', 'Sotil', 'csolit', '123', '38', '945784578', 'Av. La Paz', '2', 'ACTIVO');
-INSERT INTO `db_proyecto_dswii`.`tb_profesor` (`COD_PRO`, `NOM_PRO`, `APE_PRO`, `USU_PRO`, `PASS_PRO`, `EDAD_PRO`, `CEL_PRO`, `DIR_PRO`, `COD_ROL`, `EST_REG`) VALUES ('2', 'Cristian', 'Valdez', 'cvaldez', '123', '42', '999741247', 'Av. Brasil', '2', 'ACTIVO');
+INSERT INTO `db_proyecto_dswii`.`tb_profesor` (`COD_PRO`, `NOM_PRO`, `APE_PRO`, `USU_PRO`, `PASS_PRO`, `EDAD_PRO`, `CEL_PRO`, `DIR_PRO`, `COD_ROL`, `EST_REG`) VALUES ('1', 'Carlos', 'Sotil', 'pcsolit', '123', '38', '945784578', 'Av. La Paz', '2', 'ACTIVO');
+INSERT INTO `db_proyecto_dswii`.`tb_profesor` (`COD_PRO`, `NOM_PRO`, `APE_PRO`, `USU_PRO`, `PASS_PRO`, `EDAD_PRO`, `CEL_PRO`, `DIR_PRO`, `COD_ROL`, `EST_REG`) VALUES ('2', 'Cristian', 'Valdez', 'pcvaldez', '123', '42', '999741247', 'Av. Brasil', '2', 'ACTIVO');
 
 
 ----------------------------------------------------------------
@@ -733,3 +740,23 @@ INSERT INTO `db_proyecto_dswii`.`tb_det_sec_alu` (`COD_SEC`, `NOTA_1`, `NOTA_2`,
 INSERT INTO `db_proyecto_dswii`.`tb_det_sec_alu` (`COD_SEC`, `NOTA_1`, `NOTA_2`, `COD_ALU`) VALUES ('1', '12', '13', '2');
 
 
+
+
+
+
+/*
+
+
+INSERT INTO `db_proyecto_dswii`.`tb_administrador` (`NOM_ADMIN`, `APE_ADMIN`, `USU_ADMIN`, `PASS_ADMIN`, `COD_ROL`, `EST_REG`) VALUES ('Paul', 'Gomez', 'spgomez', '123', '1', 'ACTIVO');
+INSERT INTO `db_proyecto_dswii`.`tb_administrador` (`NOM_ADMIN`, `APE_ADMIN`, `USU_ADMIN`, `PASS_ADMIN`, `COD_ROL`, `EST_REG`) VALUES ('Alexander', 'Roman', 'saroman', '123', '1', 'ACTIVO');
+INSERT INTO `db_proyecto_dswii`.`tb_administrador` (`NOM_ADMIN`, `APE_ADMIN`, `USU_ADMIN`, `PASS_ADMIN`, `COD_ROL`, `EST_REG`) VALUES ('Stephany', 'Rojas', 'ssrojas', '123', '1', 'ACTIVO');
+
+INSERT INTO `db_proyecto_dswii`.`tb_profesor` (`NOM_PRO`, `APE_PRO`, `USU_PRO`, `PASS_PRO`, `EDAD_PRO`, `CEL_PRO`, `DIR_PRO`, `COD_ROL`, `EST_REG`) VALUES ('Alex', 'Belleza', 'pabelleza', '123', '38', '945754273', 'Av. La Paz', '2', 'ACTIVO');
+INSERT INTO `db_proyecto_dswii`.`tb_profesor` (`NOM_PRO`, `APE_PRO`, `USU_PRO`, `PASS_PRO`, `EDAD_PRO`, `CEL_PRO`, `DIR_PRO`, `COD_ROL`, `EST_REG`) VALUES ('Walter', 'Napan', 'pwnapan', '123', '38', '945731675', 'Av. La Paz', '2', 'ACTIVO');
+INSERT INTO `db_proyecto_dswii`.`tb_profesor` (`NOM_PRO`, `APE_PRO`, `USU_PRO`, `PASS_PRO`, `EDAD_PRO`, `CEL_PRO`, `DIR_PRO`, `COD_ROL`, `EST_REG`) VALUES ('Jaime', 'Paredes', 'pjperedes', '123', '38', '967712571', 'Av. La Paz', '2', 'ACTIVO');
+
+INSERT INTO `db_proyecto_dswii`.`tb_alumno` (`NOM_ALU`, `APE_ALU`, `USU_ALU`, `PASS_ALU`, `COD_CAR`, `EDAD_ALU`, `CEL_ALU`, `DIR_ALU`, `COD_ROL`, `EST_REG`) VALUES ('Ana', 'Rogriguez', 'aarodriguez', '123', '2', '24', '924102479', 'Av.Aviacion', '3', 'ACTIVO');
+INSERT INTO `db_proyecto_dswii`.`tb_alumno` (`NOM_ALU`, `APE_ALU`, `USU_ALU`, `PASS_ALU`, `COD_CAR`, `EDAD_ALU`, `CEL_ALU`, `DIR_ALU`, `COD_ROL`, `EST_REG`) VALUES ('Cesar', 'Herrera', 'acherrera', '123', '2', '24', '954302435', 'Av.Aviacion', '3', 'ACTIVO');
+INSERT INTO `db_proyecto_dswii`.`tb_alumno` (`NOM_ALU`, `APE_ALU`, `USU_ALU`, `PASS_ALU`, `COD_CAR`, `EDAD_ALU`, `CEL_ALU`, `DIR_ALU`, `COD_ROL`, `EST_REG`) VALUES ('Claudio', 'Flores', 'acflores', '123', '2', '24', '964102476', 'Av.Aviacion', '3', 'ACTIVO');
+
+*/
